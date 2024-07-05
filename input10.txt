@@ -1,0 +1,4 @@
+const x = 5 var y;
+begin
+y := 2;
+end.

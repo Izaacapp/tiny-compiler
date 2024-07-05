@@ -1,0 +1,5 @@
+const x = y;
+var z;
+begin
+z := 2;
+end.

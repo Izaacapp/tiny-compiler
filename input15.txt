@@ -1,0 +1,4 @@
+var x, y;
+begin
+while x = y then x := 2;
+end.

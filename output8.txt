@@ -1,0 +1,1 @@
+Error: constants must be assigned with =
