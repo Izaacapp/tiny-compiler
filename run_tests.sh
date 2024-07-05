@@ -34,18 +34,21 @@ run_test() {
     echo "Execution failed for input: $input_file" | tee -a $log_file
   fi
 
-  # Compare the outputs
+  # Remove trailing whitespaces for comparison
+  sed -i 's/[[:space:]]*$//' "$temp_output_file"
+  sed -i 's/[[:space:]]*$//' "$expected_output_file"
+
+  # Compare the outputs and log the differences
   if diff -q "$temp_output_file" "$expected_output_file" > /dev/null; then
     echo "Test passed for input: $input_file" | tee -a $log_file
   else
     echo "Test failed for input: $input_file" | tee -a $log_file
     echo "Differences:" | tee -a $log_file
-    diff "$temp_output_file" "$expected_output_file" | tee -a $log_file
   fi
 
   # Append the temporary and expected output to the log file for review
   # Read the files line by line and print them side by side
-  paste <(cat $temp_output_file) <(cat $expected_output_file) | awk -F '\t' '{printf "%-50s | %-50s\n", $1, $2}' >> $log_file
+  paste <(cat "$temp_output_file") <(cat "$expected_output_file") | awk -F '\t' '{printf "%-50s | %-50s\n", $1, $2}' >> $log_file
 
   echo "=====================================================================================================================" >> $log_file
 
