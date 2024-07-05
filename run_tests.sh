@@ -35,8 +35,8 @@ run_test() {
   fi
 
   # Remove trailing whitespaces for comparison
-  sed -i 's/[[:space:]]*$//' "$temp_output_file"
-  sed -i 's/[[:space:]]*$//' "$expected_output_file"
+  awk '{$1=$1}1' "$temp_output_file" > temp && mv temp "$temp_output_file"
+  awk '{$1=$1}1' "$expected_output_file" > temp && mv temp "$expected_output_file"
 
   # Compare the outputs and log the differences
   if diff -q "$temp_output_file" "$expected_output_file" > /dev/null; then
