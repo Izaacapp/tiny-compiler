@@ -1,4 +1,4 @@
-Test Results - Fri Jul  5 12:58:45 EDT 2024
+Test Results - Fri Jul  5 13:08:19 EDT 2024
 =====================================================================================================================
 Program Output                                     | Expected Output                                   
 =====================================================================================================================
@@ -49,29 +49,141 @@ Kind | Name | Value | Level | Address | Mark       | Kind | Name | Value | Level
 =====================================================================================================================
 Running test with input: input2.txt
 Execution failed for input: input2.txt
+Test failed for input: input2.txt
+Differences:
+1c1
+< Error: undeclared identifier z
+---
+> Error: undeclared identifier z
+Error: undeclared identifier z                     | Error: undeclared identifier z                   
+=====================================================================================================================
 Running test with input: input3.txt
 Execution failed for input: input3.txt
+Test failed for input: input3.txt
+Differences:
+1c1
+< Error: program must end with period
+---
+> Error: program must end with period
+Error: program must end with period                | Error: program must end with period              
+=====================================================================================================================
 Running test with input: input4.txt
 Execution failed for input: input4.txt
+Test failed for input: input4.txt
+Differences:
+1c1
+< Error: const must be followed by identifier
+---
+> Error: const must be followed by identifier
+Error: const must be followed by identifier        | Error: const must be followed by identifier      
+=====================================================================================================================
 Running test with input: input5.txt
 Execution failed for input: input5.txt
+Test failed for input: input5.txt
+Differences:
+1c1
+< Error: var must be followed by identifier
+---
+> Error: var must be followed by identifier
+Error: var must be followed by identifier          | Error: var must be followed by identifier        
+=====================================================================================================================
 Running test with input: input6.txt
 Execution failed for input: input6.txt
+Test failed for input: input6.txt
+Differences:
+1c1
+< Error: read must be followed by identifier
+---
+> Error: read must be followed by identifier
+Error: read must be followed by identifier         | Error: read must be followed by identifier       
+=====================================================================================================================
 Running test with input: input7.txt
 Execution failed for input: input7.txt
+Test failed for input: input7.txt
+Differences:
+1c1
+< Error: symbol name has already been declared x
+---
+> Error: symbol name has already been declared x
+Error: symbol name has already been declared x     | Error: symbol name has already been declared x   
+=====================================================================================================================
 Running test with input: input8.txt
 Execution failed for input: input8.txt
+Test failed for input: input8.txt
+Differences:
+1c1
+< Error: constants must be assigned with =
+---
+> Error: constants must be assigned with =
+Error: constants must be assigned with =           | Error: constants must be assigned with =         
+=====================================================================================================================
 Running test with input: input9.txt
 Execution failed for input: input9.txt
+Test failed for input: input9.txt
+Differences:
+1c1
+< Error: constants must be assigned an integer value
+---
+> Error: constants must be assigned an integer value
+Error: constants must be assigned an integer value | Error: constants must be assigned an integer value
+=====================================================================================================================
 Running test with input: input10.txt
 Execution failed for input: input10.txt
+Test failed for input: input10.txt
+Differences:
+1c1
+< Error: constant declarations must be followed by a semicolon
+---
+> Error: constant declarations must be followed by a semicolon
+Error: constant declarations must be followed by a semicolon | Error: constant declarations must be followed by a semicolon
+=====================================================================================================================
 Running test with input: input11.txt
 Execution failed for input: input11.txt
+Test failed for input: input11.txt
+Differences:
+1c1
+< Error: variable declarations must be followed by a semicolon
+---
+> Error: variable declarations must be followed by a semicolon
+Error: variable declarations must be followed by a semicolon | Error: variable declarations must be followed by a semicolon
+=====================================================================================================================
 Running test with input: input12.txt
 Execution failed for input: input12.txt
+Test failed for input: input12.txt
+Differences:
+1c1
+< Error: assignment statements must use :=
+---
+> Error: assignment statements must use :=
+Error: assignment statements must use :=           | Error: assignment statements must use :=         
+=====================================================================================================================
 Running test with input: input13.txt
 Execution failed for input: input13.txt
+Test failed for input: input13.txt
+Differences:
+1c1
+< Error: begin must be followed by end
+---
+> Error: begin must be followed by end
+Error: begin must be followed by end               | Error: begin must be followed by end             
+=====================================================================================================================
 Running test with input: input14.txt
 Execution failed for input: input14.txt
+Test failed for input: input14.txt
+Differences:
+1c1
+< Error: if must be followed by then
+---
+> Error: if must be followed by then
+Error: if must be followed by then                 | Error: if must be followed by then               
+=====================================================================================================================
 Running test with input: input15.txt
 Execution failed for input: input15.txt
+Test failed for input: input15.txt
+Differences:
+1c1
+< Error: while must be followed by do
+---
+> Error: while must be followed by do
+Error: while must be followed by do                | Error: while must be followed by do              
+=====================================================================================================================

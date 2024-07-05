@@ -29,10 +29,9 @@ run_test() {
   echo "Running test with input: $input_file" | tee -a $log_file
 
   # Run the parsercodegen program with the input file
-  ./parsercodegen "$input_file" > "$temp_output_file"
+  ./parsercodegen "$input_file" > "$temp_output_file" 2>&1
   if [ $? -ne 0 ]; then
     echo "Execution failed for input: $input_file" | tee -a $log_file
-    return 1
   fi
 
   # Compare the outputs
