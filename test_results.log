@@ -1,0 +1,77 @@
+Test Results - Fri Jul  5 12:58:45 EDT 2024
+=====================================================================================================================
+Program Output                                     | Expected Output                                   
+=====================================================================================================================
+Running test with input: input1.txt
+Test failed for input: input1.txt
+Differences:
+1,13c1,13
+< Line OP L M
+< 0 JMP 0 3
+< 1 INC 0 5
+< 2 LOD 0 4
+< 3 LIT 0 2
+< 4 MUL 0 0
+< 5 STO 0 3
+< 6 SYS 0 3
+< Symbol Table:
+< Kind | Name | Value | Level | Address | Mark
+< ---------------------------------------------------
+< 2 | x | 0 | 0 | 3 | 0
+< 2 | y | 0 | 0 | 4 | 0
+---
+> Line OP L M
+> 0 JMP 0 3
+> 1 INC 0 5
+> 2 LOD 0 4
+> 3 LIT 0 2
+> 4 MUL 0 0
+> 5 STO 0 3
+> 6 SYS 0 3
+> Symbol Table:
+> Kind | Name | Value | Level | Address | Mark
+> ---------------------------------------------------
+> 2 | x | 0 | 0 | 3 | 0
+> 2 | y | 0 | 0 | 4 | 0
+Line OP L M                                        | Line OP L M                                      
+0 JMP 0 3                                          | 0 JMP 0 3                                        
+1 INC 0 5                                          | 1 INC 0 5                                        
+2 LOD 0 4                                          | 2 LOD 0 4                                        
+3 LIT 0 2                                          | 3 LIT 0 2                                        
+4 MUL 0 0                                          | 4 MUL 0 0                                        
+5 STO 0 3                                          | 5 STO 0 3                                        
+6 SYS 0 3                                          | 6 SYS 0 3                                        
+Symbol Table:                                      | Symbol Table:                                    
+Kind | Name | Value | Level | Address | Mark       | Kind | Name | Value | Level | Address | Mark     
+--------------------------------------------------- | ---------------------------------------------------
+2 | x | 0 | 0 | 3 | 0                              | 2 | x | 0 | 0 | 3 | 0                            
+2 | y | 0 | 0 | 4 | 0                              | 2 | y | 0 | 0 | 4 | 0                            
+=====================================================================================================================
+Running test with input: input2.txt
+Execution failed for input: input2.txt
+Running test with input: input3.txt
+Execution failed for input: input3.txt
+Running test with input: input4.txt
+Execution failed for input: input4.txt
+Running test with input: input5.txt
+Execution failed for input: input5.txt
+Running test with input: input6.txt
+Execution failed for input: input6.txt
+Running test with input: input7.txt
+Execution failed for input: input7.txt
+Running test with input: input8.txt
+Execution failed for input: input8.txt
+Running test with input: input9.txt
+Execution failed for input: input9.txt
+Running test with input: input10.txt
+Execution failed for input: input10.txt
+Running test with input: input11.txt
+Execution failed for input: input11.txt
+Running test with input: input12.txt
+Execution failed for input: input12.txt
+Running test with input: input13.txt
+Execution failed for input: input13.txt
+Running test with input: input14.txt
+Execution failed for input: input14.txt
+Running test with input: input15.txt
+Execution failed for input: input15.txt
