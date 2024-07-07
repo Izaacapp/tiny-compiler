@@ -1,0 +1,16 @@
+/* sums the first n natural numbers */
+const n = 10;
+var sum, i;
+begin
+    sum := 0;
+    i := 1;
+    while i <= n do
+        begin
+            sum := sum + i;
+            i := i + 1;
+            if i > n then
+                write sum  /* should print sum */
+            fi
+        end
+    write sum /* should print sum again */
+end.

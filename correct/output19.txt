@@ -1,0 +1,24 @@
+Symbol Table:
+Kind | Name        | Value | Level | Address | Mark
+---------------------------------------------------
+   1 | z           |     5 |     0 |       0 |     0
+   2 | x           |     0 |     0 |       3 |     0
+   2 | y           |     0 |     0 |       4 |     0
+Assembly Code:
+Line    OP    L    M
+   0    JMP    0    13
+   1    INC    0    6
+   2    LIT    0    5
+   3    LIT    0    2
+   4    OPR    0    3
+   5    STO    0    3
+   6    LOD    0    3
+   7    LIT    0    1
+   8    OPR    0    1
+   9    STO    0    4
+  10    LOD    0    3
+  11    LOD    0    4
+  12    OPR    0    1
+  13    SYS    0    1
+  14    SYS    0    3
+

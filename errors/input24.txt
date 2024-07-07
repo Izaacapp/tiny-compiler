@@ -1,0 +1,18 @@
+const a = 5, b = 10;
+var x, y, z;
+
+begin
+    x := a + b;
+    y := x * 2;
+    z := y / 2;
+    if z = a then
+        x := x - 1;
+    while z > 0 do
+        z := z - 1;
+    if odd x then
+        y := y + 1;
+    if z <> a then
+        x := x + 1;
+    if z >= b then
+        z := z / 2;
+end.

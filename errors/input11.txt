@@ -1,0 +1,5 @@
+var x, y;
+begin
+    if x = y
+        x := y * 2;
+end.

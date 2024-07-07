@@ -1,0 +1,9 @@
+const a = 1;
+var b;
+begin
+    b := a + 1;
+    if b > 1 then
+        begin
+            write b;
+        end
+end.

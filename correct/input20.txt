@@ -1,0 +1,17 @@
+const z = 5;
+var x, y;
+begin
+    x := z + 2;
+    y := x + 1;
+    write x + y;
+    while x < 10 do
+        begin 
+           if x = 9 then
+              write x
+           fi
+           x := x + 1;
+		   y := x * 2;
+		   write y
+        end
+    write x + y
+end.

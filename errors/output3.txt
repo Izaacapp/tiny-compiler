@@ -1,0 +1,1 @@
+Error: symbol name has already been declared

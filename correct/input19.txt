@@ -1,0 +1,7 @@
+const z = 5;
+var x, y;
+begin
+    x := z * 2;
+    y := x + 1;
+    write x + y
+end.

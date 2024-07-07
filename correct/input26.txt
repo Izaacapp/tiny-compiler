@@ -1,0 +1,10 @@
+const x = 2, y = 3;
+var z;
+begin
+    z := x * y;
+    while z < 10 do
+        begin
+            z := z + 1;
+        end;
+    write z;
+end.
