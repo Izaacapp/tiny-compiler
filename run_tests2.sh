@@ -69,17 +69,15 @@ run_test() {
     echo "Test failed for input: $input_file" | tee -a $log_file
     echo "Differences:" | tee -a $log_file
 
+    # Extract and compare Symbol Table
+    awk '/Symbol Table:/,/Assembly Code:/' "$expected_output_file" | sed '/Assembly Code:/d' > temp_symbol_exp
+    awk '/Symbol Table:/,/Assembly Code:/' "$temp_output_file" | sed '/Assembly Code:/d' > temp_symbol_out
+    paste -d'|' <(awk '{printf "%-60s\n", $0}' temp_symbol_exp) <(awk '{printf "%-60s\n", $0}' temp_symbol_out) >> $log_file
+
     # Extract and compare Assembly Code
-    echo "Assembly Code:" >> $log_file
     awk '/Assembly Code:/,0' "$expected_output_file" > temp_assembly_exp
     awk '/Assembly Code:/,0' "$temp_output_file" > temp_assembly_out
     paste -d'|' <(awk '{printf "%-60s\n", $0}' temp_assembly_exp) <(awk '{printf "%-60s\n", $0}' temp_assembly_out) >> $log_file
-
-    # Extract and compare Symbol Table
-    echo "Symbol Table:" >> $log_file
-    awk '/Symbol Table:/,0' "$expected_output_file" > temp_symbol_exp
-    awk '/Symbol Table:/,0' "$temp_output_file" > temp_symbol_out
-    paste -d'|' <(awk '{printf "%-60s\n", $0}' temp_symbol_exp) <(awk '{printf "%-60s\n", $0}' temp_symbol_out) >> $log_file
   fi
 
   echo "=====================================================================================================================" >> $log_file
