@@ -261,8 +261,8 @@ int main(int argc, char *argv[]) {
 
     parseProgram();
 
+    displaySymbolTable();  // Print symbol table first
     displayCode();
-    displaySymbolTable();
     generateELFFile();
 
     destroyTokenList(tokenList);
