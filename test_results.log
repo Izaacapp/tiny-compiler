@@ -1,79 +1,692 @@
-Test Results - Sun Jul  7 21:07:57 EDT 2024
+Test Results - Mon Jul  8 16:53:44 EDT 2024
 =====================================================================================================================
-Program Output                                     | Expected Output                                   
+Expected Output                                              | Program Output                                              
 =====================================================================================================================
-Running test with input: input1.txt
-Execution failed for input: input1.txt
-Test failed for input: input1.txt
+Running test with input: correct/input16.txt
+Test failed for input: correct/input16.txt
 Differences:
+Assembly Code:
+Assembly Code:                                              |Assembly Code:                                              
+Line OP L M                                                 |Line Op L M                                                 
+0 JMP 0 13                                                  |0 JMP 0 13                                                  
+1 INC 0 5                                                   |1 INC 0 5                                                   
+2 LOD 0 4                                                   |2 LOD 0 4                                                   
+3 LIT 0 2                                                   |3 LIT 0 2                                                   
+4 OPR 0 3                                                   |4 OPR 0 3                                                   
+5 STO 0 3                                                   |5 STO 0 3                                                   
+6 LOD 0 4                                                   |6 LOD 0 4                                                   
+7 LIT 0 2                                                   |7 LIT 0 2                                                   
+8 OPR 0 3                                                   |8 OPR 0 3                                                   
+9 STO 0 4                                                   |9 STO 0 4                                                   
+10 LOD 0 3                                                  |10 LOD 0 3                                                  
+11 LOD 0 4                                                  |11 LOD 0 4                                                  
+12 OPR 0 5                                                  |12 OPR 0 5                                                  
+13 JPC 0 64                                                 |13 JPC 0 18                                                 
+14 LOD 0 3                                                  |14 LOD 0 3                                                  
+15 LIT 0 1                                                  |15 LIT 0 1                                                  
+16 OPR 0 1                                                  |16 OPR 0 1                                                  
+17 STO 0 3                                                  |17 STO 0 3                                                  
+18 LOD 0 4                                                  |18 LOD 0 4                                                  
+19 LIT 0 1                                                  |19 LIT 0 1                                                  
+20 OPR 0 1                                                  |20 OPR 0 1                                                  
+21 STO 0 4                                                  |21 STO 0 4                                                  
+22 LOD 0 3                                                  |22 LOD 0 3                                                  
+23 LOD 0 4                                                  |23 LOD 0 4                                                  
+24 OPR 0 7                                                  |24 OPR 0 7                                                  
+25 JPC 0 103                                                |25 JPC 0 31                                                 
+26 LOD 0 3                                                  |26 LOD 0 3                                                  
+27 LIT 0 1                                                  |27 LIT 0 1                                                  
+28 OPR 0 1                                                  |28 OPR 0 1                                                  
+29 STO 0 3                                                  |29 STO 0 3                                                  
+30 JMP 0 76                                                 |30 JMP 0 22                                                 
+31 SYS 0 3                                                  |31 SYS 0 3                                                  
+                                                            |                                                            
+|Symbol Table:                                               
+|Type | Name | Value | Level | Address | Mark                
+|-----------------------------------------------------------------------
+|2 | x | 0 | 0 | 3 | 1                                       
+|2 | y | 0 | 0 | 4 | 1                                       
+Symbol Table:
+Symbol Table:                                               |Symbol Table:                                               
+Kind | Name | Value | Level | Address | Mark                |Type | Name | Value | Level | Address | Mark                
+---------------------------------------------------         |-----------------------------------------------------------------------
+2 | x | 0 | 0 | 3 | 1                                       |2 | x | 0 | 0 | 3 | 1                                       
+2 | y | 0 | 0 | 4 | 1                                       |2 | y | 0 | 0 | 4 | 1                                       
+Assembly Code:                                              |
+Line OP L M                                                 |
+0 JMP 0 13                                                  |
+1 INC 0 5                                                   |
+2 LOD 0 4                                                   |
+3 LIT 0 2                                                   |
+4 OPR 0 3                                                   |
+5 STO 0 3                                                   |
+6 LOD 0 4                                                   |
+7 LIT 0 2                                                   |
+8 OPR 0 3                                                   |
+9 STO 0 4                                                   |
+10 LOD 0 3                                                  |
+11 LOD 0 4                                                  |
+12 OPR 0 5                                                  |
+13 JPC 0 64                                                 |
+14 LOD 0 3                                                  |
+15 LIT 0 1                                                  |
+16 OPR 0 1                                                  |
+17 STO 0 3                                                  |
+18 LOD 0 4                                                  |
+19 LIT 0 1                                                  |
+20 OPR 0 1                                                  |
+21 STO 0 4                                                  |
+22 LOD 0 3                                                  |
+23 LOD 0 4                                                  |
+24 OPR 0 7                                                  |
+25 JPC 0 103                                                |
+26 LOD 0 3                                                  |
+27 LIT 0 1                                                  |
+28 OPR 0 1                                                  |
+29 STO 0 3                                                  |
+30 JMP 0 76                                                 |
+31 SYS 0 3                                                  |
+                                                            |
 =====================================================================================================================
-Running test with input: input2.txt
-Execution failed for input: input2.txt
-Test failed for input: input2.txt
+Running test with input: correct/input17.txt
+Test failed for input: correct/input17.txt
 Differences:
+Assembly Code:
+Assembly Code:                                              |Assembly Code:                                              
+Line OP L M                                                 |Line Op L M                                                 
+0 JMP 0 13                                                  |0 JMP 0 13                                                  
+1 INC 0 5                                                   |1 INC 0 5                                                   
+2 LOD 0 4                                                   |2 LOD 0 4                                                   
+3 LIT 0 2                                                   |3 LIT 0 2                                                   
+4 OPR 0 3                                                   |4 OPR 0 3                                                   
+5 STO 0 3                                                   |5 STO 0 3                                                   
+6 SYS 0 3                                                   |6 SYS 0 3                                                   
+                                                            |                                                            
+|Symbol Table:                                               
+|Type | Name | Value | Level | Address | Mark                
+|-----------------------------------------------------------------------
+|2 | x | 0 | 0 | 3 | 1                                       
+|2 | y | 0 | 0 | 4 | 1                                       
+Symbol Table:
+Symbol Table:                                               |Symbol Table:                                               
+Kind | Name | Value | Level | Address | Mark                |Type | Name | Value | Level | Address | Mark                
+---------------------------------------------------         |-----------------------------------------------------------------------
+2 | x | 0 | 0 | 3 | 1                                       |2 | x | 0 | 0 | 3 | 1                                       
+2 | y | 0 | 0 | 4 | 1                                       |2 | y | 0 | 0 | 4 | 1                                       
+Assembly Code:                                              |
+Line OP L M                                                 |
+0 JMP 0 13                                                  |
+1 INC 0 5                                                   |
+2 LOD 0 4                                                   |
+3 LIT 0 2                                                   |
+4 OPR 0 3                                                   |
+5 STO 0 3                                                   |
+6 SYS 0 3                                                   |
+                                                            |
 =====================================================================================================================
-Running test with input: input3.txt
-Execution failed for input: input3.txt
-Test failed for input: input3.txt
+Running test with input: correct/input18.txt
+Test failed for input: correct/input18.txt
 Differences:
+Assembly Code:
+Assembly Code:                                              |Assembly Code:                                              
+Line OP L M                                                 |Line Op L M                                                 
+0 JMP 0 13                                                  |0 JMP 0 13                                                  
+1 INC 0 5                                                   |1 INC 0 5                                                   
+2 LOD 0 4                                                   |2 LOD 0 4                                                   
+3 LIT 0 2                                                   |3 LIT 0 2                                                   
+4 OPR 0 3                                                   |4 OPR 0 3                                                   
+5 STO 0 3                                                   |5 STO 0 3                                                   
+6 LOD 0 3                                                   |6 LOD 0 3                                                   
+7 LIT 0 10                                                  |7 LIT 0 10                                                  
+8 OPR 0 7                                                   |8 OPR 0 7                                                   
+9 JPC 0 55                                                  |9 JPC 0 15                                                  
+10 LOD 0 3                                                  |10 LOD 0 3                                                  
+11 LIT 0 1                                                  |11 LIT 0 1                                                  
+12 OPR 0 1                                                  |12 OPR 0 1                                                  
+13 STO 0 3                                                  |13 STO 0 3                                                  
+14 JMP 0 28                                                 |14 JMP 0 6                                                  
+15 SYS 0 3                                                  |15 SYS 0 3                                                  
+                                                            |                                                            
+|Symbol Table:                                               
+|Type | Name | Value | Level | Address | Mark                
+|-----------------------------------------------------------------------
+|2 | x | 0 | 0 | 3 | 1                                       
+|2 | y | 0 | 0 | 4 | 1                                       
+Symbol Table:
+Symbol Table:                                               |Symbol Table:                                               
+Kind | Name | Value | Level | Address | Mark                |Type | Name | Value | Level | Address | Mark                
+---------------------------------------------------         |-----------------------------------------------------------------------
+2 | x | 0 | 0 | 3 | 1                                       |2 | x | 0 | 0 | 3 | 1                                       
+2 | y | 0 | 0 | 4 | 1                                       |2 | y | 0 | 0 | 4 | 1                                       
+Assembly Code:                                              |
+Line OP L M                                                 |
+0 JMP 0 13                                                  |
+1 INC 0 5                                                   |
+2 LOD 0 4                                                   |
+3 LIT 0 2                                                   |
+4 OPR 0 3                                                   |
+5 STO 0 3                                                   |
+6 LOD 0 3                                                   |
+7 LIT 0 10                                                  |
+8 OPR 0 7                                                   |
+9 JPC 0 55                                                  |
+10 LOD 0 3                                                  |
+11 LIT 0 1                                                  |
+12 OPR 0 1                                                  |
+13 STO 0 3                                                  |
+14 JMP 0 28                                                 |
+15 SYS 0 3                                                  |
+                                                            |
 =====================================================================================================================
-Running test with input: input4.txt
-Execution failed for input: input4.txt
-Test failed for input: input4.txt
+Running test with input: correct/input19.txt
+Test failed for input: correct/input19.txt
 Differences:
+Assembly Code:
+Assembly Code:                                              |Assembly Code:                                              
+Line OP L M                                                 |Line Op L M                                                 
+0 JMP 0 13                                                  |0 JMP 0 13                                                  
+1 INC 0 5                                                   |1 INC 0 5                                                   
+2 LIT 0 5                                                   |2 LIT 0 5                                                   
+3 LIT 0 2                                                   |3 LIT 0 2                                                   
+4 OPR 0 3                                                   |4 OPR 0 3                                                   
+5 STO 0 3                                                   |5 STO 0 3                                                   
+6 LOD 0 3                                                   |6 LOD 0 3                                                   
+7 LIT 0 1                                                   |7 LIT 0 1                                                   
+8 OPR 0 1                                                   |8 OPR 0 1                                                   
+9 STO 0 4                                                   |9 STO 0 4                                                   
+10 LOD 0 3                                                  |10 LOD 0 3                                                  
+11 LOD 0 4                                                  |11 LOD 0 4                                                  
+12 OPR 0 1                                                  |12 OPR 0 1                                                  
+13 SYS 0 1                                                  |13 SYS 0 1                                                  
+14 SYS 0 3                                                  |14 SYS 0 3                                                  
+                                                            |                                                            
+|Symbol Table:                                               
+|Type | Name | Value | Level | Address | Mark                
+|-----------------------------------------------------------------------
+|1 | z | 5 | - | - | 1                                       
+|2 | x | 0 | 0 | 3 | 1                                       
+|2 | y | 0 | 0 | 4 | 1                                       
+Symbol Table:
+Symbol Table:                                               |Symbol Table:                                               
+Kind | Name | Value | Level | Address | Mark                |Type | Name | Value | Level | Address | Mark                
+---------------------------------------------------         |-----------------------------------------------------------------------
+1 | z | 5 | 0 | 0 | 1                                       |1 | z | 5 | - | - | 1                                       
+2 | x | 0 | 0 | 3 | 1                                       |2 | x | 0 | 0 | 3 | 1                                       
+2 | y | 0 | 0 | 4 | 1                                       |2 | y | 0 | 0 | 4 | 1                                       
+Assembly Code:                                              |
+Line OP L M                                                 |
+0 JMP 0 13                                                  |
+1 INC 0 5                                                   |
+2 LIT 0 5                                                   |
+3 LIT 0 2                                                   |
+4 OPR 0 3                                                   |
+5 STO 0 3                                                   |
+6 LOD 0 3                                                   |
+7 LIT 0 1                                                   |
+8 OPR 0 1                                                   |
+9 STO 0 4                                                   |
+10 LOD 0 3                                                  |
+11 LOD 0 4                                                  |
+12 OPR 0 1                                                  |
+13 SYS 0 1                                                  |
+14 SYS 0 3                                                  |
+                                                            |
 =====================================================================================================================
-Running test with input: input5.txt
-Execution failed for input: input5.txt
-Test failed for input: input5.txt
+Running test with input: correct/input20.txt
+Test failed for input: correct/input20.txt
 Differences:
+Assembly Code:
+Assembly Code:                                              |Assembly Code:                                              
+Line OP L M                                                 |Line Op L M                                                 
+0 JMP 0 13                                                  |0 JMP 0 13                                                  
+1 INC 0 5                                                   |1 INC 0 5                                                   
+2 LIT 0 5                                                   |2 LIT 0 5                                                   
+3 LIT 0 2                                                   |3 LIT 0 2                                                   
+4 OPR 0 1                                                   |4 OPR 0 1                                                   
+5 STO 0 3                                                   |5 STO 0 3                                                   
+6 LOD 0 3                                                   |6 LOD 0 3                                                   
+7 LIT 0 1                                                   |7 LIT 0 1                                                   
+8 OPR 0 1                                                   |8 OPR 0 1                                                   
+9 STO 0 4                                                   |9 STO 0 4                                                   
+10 LOD 0 3                                                  |10 LOD 0 3                                                  
+11 LOD 0 4                                                  |11 LOD 0 4                                                  
+12 OPR 0 1                                                  |12 OPR 0 1                                                  
+13 SYS 0 1                                                  |13 SYS 0 1                                                  
+14 LOD 0 3                                                  |14 LOD 0 3                                                  
+15 LIT 0 10                                                 |15 LIT 0 10                                                 
+16 OPR 0 7                                                  |16 OPR 0 7                                                  
+17 JPC 0 115                                                |17 JPC 0 35                                                 
+18 LOD 0 3                                                  |18 LOD 0 3                                                  
+19 LIT 0 9                                                  |19 LIT 0 9                                                  
+20 OPR 0 5                                                  |20 OPR 0 5                                                  
+21 JPC 0 82                                                 |21 JPC 0 24                                                 
+22 LOD 0 3                                                  |22 LOD 0 3                                                  
+23 SYS 0 1                                                  |23 SYS 0 1                                                  
+24 LOD 0 3                                                  |24 LOD 0 3                                                  
+25 LIT 0 1                                                  |25 LIT 0 1                                                  
+26 OPR 0 1                                                  |26 OPR 0 1                                                  
+27 STO 0 3                                                  |27 STO 0 3                                                  
+28 LOD 0 3                                                  |28 LOD 0 3                                                  
+29 LIT 0 2                                                  |29 LIT 0 2                                                  
+30 OPR 0 3                                                  |30 OPR 0 3                                                  
+31 STO 0 4                                                  |31 STO 0 4                                                  
+32 LOD 0 4                                                  |32 LOD 0 4                                                  
+33 SYS 0 1                                                  |33 SYS 0 1                                                  
+34 JMP 0 52                                                 |34 JMP 0 14                                                 
+35 LOD 0 3                                                  |35 LOD 0 3                                                  
+36 LOD 0 4                                                  |36 LOD 0 4                                                  
+37 OPR 0 1                                                  |37 OPR 0 1                                                  
+38 SYS 0 1                                                  |38 SYS 0 1                                                  
+39 SYS 0 3                                                  |39 SYS 0 3                                                  
+                                                            |                                                            
+|Symbol Table:                                               
+|Type | Name | Value | Level | Address | Mark                
+|-----------------------------------------------------------------------
+|1 | z | 5 | - | - | 1                                       
+|2 | x | 0 | 0 | 3 | 1                                       
+|2 | y | 0 | 0 | 4 | 1                                       
+Symbol Table:
+Symbol Table:                                               |Symbol Table:                                               
+Kind | Name | Value | Level | Address | Mark                |Type | Name | Value | Level | Address | Mark                
+---------------------------------------------------         |-----------------------------------------------------------------------
+1 | z | 5 | 0 | 0 | 1                                       |1 | z | 5 | - | - | 1                                       
+2 | x | 0 | 0 | 3 | 1                                       |2 | x | 0 | 0 | 3 | 1                                       
+2 | y | 0 | 0 | 4 | 1                                       |2 | y | 0 | 0 | 4 | 1                                       
+Assembly Code:                                              |
+Line OP L M                                                 |
+0 JMP 0 13                                                  |
+1 INC 0 5                                                   |
+2 LIT 0 5                                                   |
+3 LIT 0 2                                                   |
+4 OPR 0 1                                                   |
+5 STO 0 3                                                   |
+6 LOD 0 3                                                   |
+7 LIT 0 1                                                   |
+8 OPR 0 1                                                   |
+9 STO 0 4                                                   |
+10 LOD 0 3                                                  |
+11 LOD 0 4                                                  |
+12 OPR 0 1                                                  |
+13 SYS 0 1                                                  |
+14 LOD 0 3                                                  |
+15 LIT 0 10                                                 |
+16 OPR 0 7                                                  |
+17 JPC 0 115                                                |
+18 LOD 0 3                                                  |
+19 LIT 0 9                                                  |
+20 OPR 0 5                                                  |
+21 JPC 0 82                                                 |
+22 LOD 0 3                                                  |
+23 SYS 0 1                                                  |
+24 LOD 0 3                                                  |
+25 LIT 0 1                                                  |
+26 OPR 0 1                                                  |
+27 STO 0 3                                                  |
+28 LOD 0 3                                                  |
+29 LIT 0 2                                                  |
+30 OPR 0 3                                                  |
+31 STO 0 4                                                  |
+32 LOD 0 4                                                  |
+33 SYS 0 1                                                  |
+34 JMP 0 52                                                 |
+35 LOD 0 3                                                  |
+36 LOD 0 4                                                  |
+37 OPR 0 1                                                  |
+38 SYS 0 1                                                  |
+39 SYS 0 3                                                  |
+                                                            |
 =====================================================================================================================
-Running test with input: input6.txt
-Execution failed for input: input6.txt
-Test failed for input: input6.txt
+Running test with input: correct/input21.txt
+Test failed for input: correct/input21.txt
 Differences:
+Assembly Code:
+Assembly Code:                                              |Assembly Code:                                              
+Line OP L M                                                 |Line Op L M                                                 
+0 JMP 0 13                                                  |0 JMP 0 13                                                  
+1 INC 0 5                                                   |1 INC 0 5                                                   
+2 LIT 0 0                                                   |2 LIT 0 0                                                   
+3 STO 0 3                                                   |3 STO 0 3                                                   
+4 LIT 0 1                                                   |4 LIT 0 1                                                   
+5 STO 0 4                                                   |5 STO 0 4                                                   
+6 LOD 0 4                                                   |6 LOD 0 4                                                   
+7 LIT 0 10                                                  |7 LIT 0 10                                                  
+8 OPR 0 8                                                   |8 OPR 0 8                                                   
+9 JPC 0 85                                                  |9 JPC 0 25                                                  
+10 LOD 0 3                                                  |10 LOD 0 3                                                  
+11 LOD 0 4                                                  |11 LOD 0 4                                                  
+12 OPR 0 1                                                  |12 OPR 0 1                                                  
+13 STO 0 3                                                  |13 STO 0 3                                                  
+14 LOD 0 4                                                  |14 LOD 0 4                                                  
+15 LIT 0 1                                                  |15 LIT 0 1                                                  
+16 OPR 0 1                                                  |16 OPR 0 1                                                  
+17 STO 0 4                                                  |17 STO 0 4                                                  
+18 LOD 0 4                                                  |18 LOD 0 4                                                  
+19 LIT 0 10                                                 |19 LIT 0 10                                                 
+20 OPR 0 9                                                  |20 OPR 0 9                                                  
+21 JPC 0 82                                                 |21 JPC 0 24                                                 
+22 LOD 0 3                                                  |22 LOD 0 3                                                  
+23 SYS 0 1                                                  |23 SYS 0 1                                                  
+24 JMP 0 28                                                 |24 JMP 0 6                                                  
+25 LOD 0 3                                                  |25 LOD 0 3                                                  
+26 SYS 0 1                                                  |26 SYS 0 1                                                  
+27 SYS 0 3                                                  |27 SYS 0 3                                                  
+                                                            |                                                            
+|Symbol Table:                                               
+|Type | Name | Value | Level | Address | Mark                
+|-----------------------------------------------------------------------
+|1 | n | 10 | - | - | 1                                      
+|2 | sum | 0 | 0 | 3 | 1                                     
+|2 | i | 0 | 0 | 4 | 1                                       
+Symbol Table:
+Symbol Table:                                               |Symbol Table:                                               
+Kind | Name | Value | Level | Address | Mark                |Type | Name | Value | Level | Address | Mark                
+---------------------------------------------------         |-----------------------------------------------------------------------
+1 | n | 10 | 0 | 0 | 1                                      |1 | n | 10 | - | - | 1                                      
+2 | sum | 0 | 0 | 3 | 1                                     |2 | sum | 0 | 0 | 3 | 1                                     
+2 | i | 0 | 0 | 4 | 1                                       |2 | i | 0 | 0 | 4 | 1                                       
+Assembly Code:                                              |
+Line OP L M                                                 |
+0 JMP 0 13                                                  |
+1 INC 0 5                                                   |
+2 LIT 0 0                                                   |
+3 STO 0 3                                                   |
+4 LIT 0 1                                                   |
+5 STO 0 4                                                   |
+6 LOD 0 4                                                   |
+7 LIT 0 10                                                  |
+8 OPR 0 8                                                   |
+9 JPC 0 85                                                  |
+10 LOD 0 3                                                  |
+11 LOD 0 4                                                  |
+12 OPR 0 1                                                  |
+13 STO 0 3                                                  |
+14 LOD 0 4                                                  |
+15 LIT 0 1                                                  |
+16 OPR 0 1                                                  |
+17 STO 0 4                                                  |
+18 LOD 0 4                                                  |
+19 LIT 0 10                                                 |
+20 OPR 0 9                                                  |
+21 JPC 0 82                                                 |
+22 LOD 0 3                                                  |
+23 SYS 0 1                                                  |
+24 JMP 0 28                                                 |
+25 LOD 0 3                                                  |
+26 SYS 0 1                                                  |
+27 SYS 0 3                                                  |
+                                                            |
 =====================================================================================================================
-Running test with input: input7.txt
-Execution failed for input: input7.txt
-Test failed for input: input7.txt
+Running test with input: correct/input22.txt
+Test failed for input: correct/input22.txt
 Differences:
+Assembly Code:
+Assembly Code:                                              |Assembly Code:                                              
+Line OP L M                                                 |Line Op L M                                                 
+0 JMP 0 13                                                  |0 JMP 0 13                                                  
+1 INC 0 5                                                   |1 INC 0 5                                                   
+2 LOD 0 4                                                   |2 LOD 0 4                                                   
+3 LIT 0 2                                                   |3 LIT 0 2                                                   
+4 OPR 0 3                                                   |4 OPR 0 3                                                   
+5 STO 0 3                                                   |5 STO 0 3                                                   
+6 SYS 0 3                                                   |6 SYS 0 3                                                   
+                                                            |                                                            
+|Symbol Table:                                               
+|Type | Name | Value | Level | Address | Mark                
+|-----------------------------------------------------------------------
+|2 | x | 0 | 0 | 3 | 1                                       
+|2 | y | 0 | 0 | 4 | 1                                       
+Symbol Table:
+Symbol Table:                                               |Symbol Table:                                               
+Kind | Name | Value | Level | Address | Mark                |Type | Name | Value | Level | Address | Mark                
+---------------------------------------------------         |-----------------------------------------------------------------------
+2 | x | 0 | 0 | 3 | 1                                       |2 | x | 0 | 0 | 3 | 1                                       
+2 | y | 0 | 0 | 4 | 1                                       |2 | y | 0 | 0 | 4 | 1                                       
+Assembly Code:                                              |
+Line OP L M                                                 |
+0 JMP 0 13                                                  |
+1 INC 0 5                                                   |
+2 LOD 0 4                                                   |
+3 LIT 0 2                                                   |
+4 OPR 0 3                                                   |
+5 STO 0 3                                                   |
+6 SYS 0 3                                                   |
+                                                            |
 =====================================================================================================================
-Running test with input: input8.txt
-Execution failed for input: input8.txt
-Test failed for input: input8.txt
+Running test with input: correct/input23.txt
+Test failed for input: correct/input23.txt
 Differences:
+Assembly Code:
+Assembly Code:                                              |Assembly Code:                                              
+Line OP L M                                                 |Line Op L M                                                 
+0 JMP 0 13                                                  |0 JMP 0 13                                                  
+1 INC 0 5                                                   |1 INC 0 5                                                   
+2 LOD 0 4                                                   |2 LOD 0 4                                                   
+3 LIT 0 2                                                   |3 LIT 0 2                                                   
+4 OPR 0 3                                                   |4 OPR 0 3                                                   
+5 STO 0 3                                                   |5 STO 0 3                                                   
+6 SYS 0 3                                                   |6 SYS 0 3                                                   
+                                                            |                                                            
+|Symbol Table:                                               
+|Type | Name | Value | Level | Address | Mark                
+|-----------------------------------------------------------------------
+|1 | z | 5 | - | - | 1                                       
+|2 | x | 0 | 0 | 3 | 1                                       
+|2 | y | 0 | 0 | 4 | 1                                       
+Symbol Table:
+Symbol Table:                                               |Symbol Table:                                               
+Kind | Name | Value | Level | Address | Mark                |Type | Name | Value | Level | Address | Mark                
+---------------------------------------------------         |-----------------------------------------------------------------------
+1 | z | 5 | 0 | 0 | 1                                       |1 | z | 5 | - | - | 1                                       
+2 | x | 0 | 0 | 3 | 1                                       |2 | x | 0 | 0 | 3 | 1                                       
+2 | y | 0 | 0 | 4 | 1                                       |2 | y | 0 | 0 | 4 | 1                                       
+Assembly Code:                                              |
+Line OP L M                                                 |
+0 JMP 0 13                                                  |
+1 INC 0 5                                                   |
+2 LOD 0 4                                                   |
+3 LIT 0 2                                                   |
+4 OPR 0 3                                                   |
+5 STO 0 3                                                   |
+6 SYS 0 3                                                   |
+                                                            |
 =====================================================================================================================
-Running test with input: input9.txt
-Execution failed for input: input9.txt
-Test failed for input: input9.txt
+Running test with input: correct/input26.txt
+Test failed for input: correct/input26.txt
 Differences:
+Assembly Code:
+Assembly Code:                                              |Assembly Code:                                              
+Line OP L M                                                 |Line Op L M                                                 
+0 JMP 0 13                                                  |0 JMP 0 13                                                  
+1 INC 0 4                                                   |1 INC 0 4                                                   
+2 LIT 0 2                                                   |2 LIT 0 2                                                   
+3 LIT 0 3                                                   |3 LIT 0 3                                                   
+4 OPR 0 3                                                   |4 OPR 0 3                                                   
+5 STO 0 3                                                   |5 STO 0 3                                                   
+6 LOD 0 3                                                   |6 LOD 0 3                                                   
+7 LIT 0 10                                                  |7 LIT 0 10                                                  
+8 OPR 0 7                                                   |8 OPR 0 7                                                   
+9 JPC 0 55                                                  |9 JPC 0 15                                                  
+10 LOD 0 3                                                  |10 LOD 0 3                                                  
+11 LIT 0 1                                                  |11 LIT 0 1                                                  
+12 OPR 0 1                                                  |12 OPR 0 1                                                  
+13 STO 0 3                                                  |13 STO 0 3                                                  
+14 JMP 0 28                                                 |14 JMP 0 6                                                  
+15 LOD 0 3                                                  |15 LOD 0 3                                                  
+16 SYS 0 1                                                  |16 SYS 0 1                                                  
+17 SYS 0 3                                                  |17 SYS 0 3                                                  
+                                                            |                                                            
+|Symbol Table:                                               
+|Type | Name | Value | Level | Address | Mark                
+|-----------------------------------------------------------------------
+|1 | x | 2 | - | - | 1                                       
+|1 | y | 3 | - | - | 1                                       
+|2 | z | 0 | 0 | 3 | 1                                       
+Symbol Table:
+Symbol Table:                                               |Symbol Table:                                               
+Kind | Name | Value | Level | Address | Mark                |Type | Name | Value | Level | Address | Mark                
+---------------------------------------------------         |-----------------------------------------------------------------------
+1 | x | 2 | 0 | 0 | 1                                       |1 | x | 2 | - | - | 1                                       
+1 | y | 3 | 0 | 0 | 1                                       |1 | y | 3 | - | - | 1                                       
+2 | z | 0 | 0 | 3 | 1                                       |2 | z | 0 | 0 | 3 | 1                                       
+Assembly Code:                                              |
+Line OP L M                                                 |
+0 JMP 0 13                                                  |
+1 INC 0 4                                                   |
+2 LIT 0 2                                                   |
+3 LIT 0 3                                                   |
+4 OPR 0 3                                                   |
+5 STO 0 3                                                   |
+6 LOD 0 3                                                   |
+7 LIT 0 10                                                  |
+8 OPR 0 7                                                   |
+9 JPC 0 55                                                  |
+10 LOD 0 3                                                  |
+11 LIT 0 1                                                  |
+12 OPR 0 1                                                  |
+13 STO 0 3                                                  |
+14 JMP 0 28                                                 |
+15 LOD 0 3                                                  |
+16 SYS 0 1                                                  |
+17 SYS 0 3                                                  |
+                                                            |
 =====================================================================================================================
-Running test with input: input10.txt
-Execution failed for input: input10.txt
-Test failed for input: input10.txt
+Running test with input: correct/input27.txt
+Test failed for input: correct/input27.txt
 Differences:
+Assembly Code:
+Assembly Code:                                              |Assembly Code:                                              
+Line OP L M                                                 |Line Op L M                                                 
+0 JMP 0 13                                                  |0 JMP 0 13                                                  
+1 INC 0 5                                                   |1 INC 0 5                                                   
+2 LIT 0 5                                                   |2 LIT 0 5                                                   
+3 LIT 0 2                                                   |3 LIT 0 2                                                   
+4 OPR 0 1                                                   |4 OPR 0 1                                                   
+5 STO 0 3                                                   |5 STO 0 3                                                   
+6 LOD 0 3                                                   |6 LOD 0 3                                                   
+7 LIT 0 1                                                   |7 LIT 0 1                                                   
+8 OPR 0 1                                                   |8 OPR 0 1                                                   
+9 STO 0 4                                                   |9 STO 0 4                                                   
+10 LOD 0 3                                                  |10 LOD 0 3                                                  
+11 LOD 0 4                                                  |11 LOD 0 4                                                  
+12 OPR 0 1                                                  |12 OPR 0 1                                                  
+13 SYS 0 1                                                  |13 SYS 0 1                                                  
+14 LOD 0 3                                                  |14 LOD 0 3                                                  
+15 LIT 0 10                                                 |15 LIT 0 10                                                 
+16 OPR 0 7                                                  |16 OPR 0 7                                                  
+17 JPC 0 115                                                |17 JPC 0 35                                                 
+18 LOD 0 3                                                  |18 LOD 0 3                                                  
+19 LIT 0 9                                                  |19 LIT 0 9                                                  
+20 OPR 0 5                                                  |20 OPR 0 5                                                  
+21 JPC 0 82                                                 |21 JPC 0 24                                                 
+22 LOD 0 3                                                  |22 LOD 0 3                                                  
+23 SYS 0 1                                                  |23 SYS 0 1                                                  
+24 LOD 0 3                                                  |24 LOD 0 3                                                  
+25 LIT 0 1                                                  |25 LIT 0 1                                                  
+26 OPR 0 1                                                  |26 OPR 0 1                                                  
+27 STO 0 3                                                  |27 STO 0 3                                                  
+28 LOD 0 3                                                  |28 LOD 0 3                                                  
+29 LIT 0 2                                                  |29 LIT 0 2                                                  
+30 OPR 0 3                                                  |30 OPR 0 3                                                  
+31 STO 0 4                                                  |31 STO 0 4                                                  
+32 LOD 0 4                                                  |32 LOD 0 4                                                  
+33 SYS 0 1                                                  |33 SYS 0 1                                                  
+34 JMP 0 52                                                 |34 JMP 0 14                                                 
+35 LOD 0 3                                                  |35 LOD 0 3                                                  
+36 LOD 0 4                                                  |36 LOD 0 4                                                  
+37 OPR 0 1                                                  |37 OPR 0 1                                                  
+38 SYS 0 1                                                  |38 SYS 0 1                                                  
+39 SYS 0 3                                                  |39 SYS 0 3                                                  
+                                                            |                                                            
+|Symbol Table:                                               
+|Type | Name | Value | Level | Address | Mark                
+|-----------------------------------------------------------------------
+|1 | z | 5 | - | - | 1                                       
+|2 | x | 0 | 0 | 3 | 1                                       
+|2 | y | 0 | 0 | 4 | 1                                       
+Symbol Table:
+Symbol Table:                                               |Symbol Table:                                               
+Kind | Name | Value | Level | Address | Mark                |Type | Name | Value | Level | Address | Mark                
+---------------------------------------------------         |-----------------------------------------------------------------------
+1 | z | 5 | 0 | 0 | 1                                       |1 | z | 5 | - | - | 1                                       
+2 | x | 0 | 0 | 3 | 1                                       |2 | x | 0 | 0 | 3 | 1                                       
+2 | y | 0 | 0 | 4 | 1                                       |2 | y | 0 | 0 | 4 | 1                                       
+Assembly Code:                                              |
+Line OP L M                                                 |
+0 JMP 0 13                                                  |
+1 INC 0 5                                                   |
+2 LIT 0 5                                                   |
+3 LIT 0 2                                                   |
+4 OPR 0 1                                                   |
+5 STO 0 3                                                   |
+6 LOD 0 3                                                   |
+7 LIT 0 1                                                   |
+8 OPR 0 1                                                   |
+9 STO 0 4                                                   |
+10 LOD 0 3                                                  |
+11 LOD 0 4                                                  |
+12 OPR 0 1                                                  |
+13 SYS 0 1                                                  |
+14 LOD 0 3                                                  |
+15 LIT 0 10                                                 |
+16 OPR 0 7                                                  |
+17 JPC 0 115                                                |
+18 LOD 0 3                                                  |
+19 LIT 0 9                                                  |
+20 OPR 0 5                                                  |
+21 JPC 0 82                                                 |
+22 LOD 0 3                                                  |
+23 SYS 0 1                                                  |
+24 LOD 0 3                                                  |
+25 LIT 0 1                                                  |
+26 OPR 0 1                                                  |
+27 STO 0 3                                                  |
+28 LOD 0 3                                                  |
+29 LIT 0 2                                                  |
+30 OPR 0 3                                                  |
+31 STO 0 4                                                  |
+32 LOD 0 4                                                  |
+33 SYS 0 1                                                  |
+34 JMP 0 52                                                 |
+35 LOD 0 3                                                  |
+36 LOD 0 4                                                  |
+37 OPR 0 1                                                  |
+38 SYS 0 1                                                  |
+39 SYS 0 3                                                  |
+                                                            |
 =====================================================================================================================
-Running test with input: input11.txt
-Execution failed for input: input11.txt
-Test failed for input: input11.txt
+Running test with input: correct/input31.txt
+Test failed for input: correct/input31.txt
 Differences:
-=====================================================================================================================
-Running test with input: input12.txt
-Execution failed for input: input12.txt
-Test failed for input: input12.txt
-Differences:
-=====================================================================================================================
-Running test with input: input13.txt
-Execution failed for input: input13.txt
-Test failed for input: input13.txt
-Differences:
-=====================================================================================================================
-Running test with input: input14.txt
-Execution failed for input: input14.txt
-Test failed for input: input14.txt
-Differences:
-=====================================================================================================================
-Running test with input: input15.txt
-Execution failed for input: input15.txt
-Test failed for input: input15.txt
-Differences:
+Assembly Code:
+Assembly Code:                                              |Assembly Code:                                              
+Line OP L M                                                 |Line Op L M                                                 
+0 JMP 0 13                                                  |0 JMP 0 13                                                  
+1 INC 0 5                                                   |1 INC 0 5                                                   
+2 LOD 0 4                                                   |2 LOD 0 4                                                   
+3 LIT 0 2                                                   |3 LIT 0 2                                                   
+4 OPR 0 3                                                   |4 OPR 0 3                                                   
+5 STO 0 3                                                   |5 STO 0 3                                                   
+6 SYS 0 3                                                   |6 SYS 0 3                                                   
+                                                            |                                                            
+|Symbol Table:                                               
+|Type | Name | Value | Level | Address | Mark                
+|-----------------------------------------------------------------------
+|2 | x | 0 | 0 | 3 | 1                                       
+|2 | y | 0 | 0 | 4 | 1                                       
+Symbol Table:
+Symbol Table:                                               |Symbol Table:                                               
+Kind | Name | Value | Level | Address | Mark                |Type | Name | Value | Level | Address | Mark                
+---------------------------------------------------         |-----------------------------------------------------------------------
+2 | x | 0 | 0 | 3 | 1                                       |2 | x | 0 | 0 | 3 | 1                                       
+2 | y | 0 | 0 | 4 | 1                                       |2 | y | 0 | 0 | 4 | 1                                       
+Assembly Code:                                              |
+Line OP L M                                                 |
+0 JMP 0 13                                                  |
+1 INC 0 5                                                   |
+2 LOD 0 4                                                   |
+3 LIT 0 2                                                   |
+4 OPR 0 3                                                   |
+5 STO 0 3                                                   |
+6 SYS 0 3                                                   |
+                                                            |
 =====================================================================================================================
