@@ -1,37 +1,37 @@
 Symbol Table:
-Kind | Name        | Value | Level | Address | Mark
+Kind | Name | Value | Level | Address | Mark
 ---------------------------------------------------
-   1 | n           |    10 |     0 |       0 |     1
-   2 | sum         |     0 |     0 |       3 |     1
-   2 | i           |     0 |     0 |       4 |     1
+1 | n | 10 | 0 | 0 | 1
+2 | sum | 0 | 0 | 3 | 1
+2 | i | 0 | 0 | 4 | 1
 Assembly Code:
-Line    OP    L    M
-   0    JMP    0    13
-   1    INC    0    5
-   2    LIT    0    0
-   3    STO    0    3
-   4    LIT    0    1
-   5    STO    0    4
-   6    LOD    0    4
-   7    LIT    0    10
-   8    OPR    0    8
-   9    JPC    0    85
-  10    LOD    0    3
-  11    LOD    0    4
-  12    OPR    0    1
-  13    STO    0    3
-  14    LOD    0    4
-  15    LIT    0    1
-  16    OPR    0    1
-  17    STO    0    4
-  18    LOD    0    4
-  19    LIT    0    10
-  20    OPR    0    9
-  21    JPC    0    82
-  22    LOD    0    3
-  23    SYS    0    1
-  24    JMP    0    28
-  25    LOD    0    3
-  26    SYS    0    1
-  27    SYS    0    3
+Line OP L M
+0 JMP 0 13
+1 INC 0 5
+2 LIT 0 0
+3 STO 0 3
+4 LIT 0 1
+5 STO 0 4
+6 LOD 0 4
+7 LIT 0 10
+8 OPR 0 8
+9 JPC 0 85
+10 LOD 0 3
+11 LOD 0 4
+12 OPR 0 1
+13 STO 0 3
+14 LOD 0 4
+15 LIT 0 1
+16 OPR 0 1
+17 STO 0 4
+18 LOD 0 4
+19 LIT 0 10
+20 OPR 0 9
+21 JPC 0 82
+22 LOD 0 3
+23 SYS 0 1
+24 JMP 0 28
+25 LOD 0 3
+26 SYS 0 1
+27 SYS 0 3
 
