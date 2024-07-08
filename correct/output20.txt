@@ -1,49 +1,49 @@
 Symbol Table:
-Kind | Name        | Value | Level | Address | Mark
+Kind | Name | Value | Level | Address | Mark
 ---------------------------------------------------
-   1 | z           |     5 |     0 |       0 |     1
-   2 | x           |     0 |     0 |       3 |     1
-   2 | y           |     0 |     0 |       4 |     1
+1 | z | 5 | 0 | 0 | 1
+2 | x | 0 | 0 | 3 | 1
+2 | y | 0 | 0 | 4 | 1
 Assembly Code:
-Line    OP    L    M
-   0    JMP    0    13
-   1    INC    0    5
-   2    LIT    0    5
-   3    LIT    0    2
-   4    OPR    0    1
-   5    STO    0    3
-   6    LOD    0    3
-   7    LIT    0    1
-   8    OPR    0    1
-   9    STO    0    4
-  10    LOD    0    3
-  11    LOD    0    4
-  12    OPR    0    1
-  13    SYS    0    1
-  14    LOD    0    3
-  15    LIT    0    10
-  16    OPR    0    7
-  17    JPC    0    115
-  18    LOD    0    3
-  19    LIT    0    9
-  20    OPR    0    5
-  21    JPC    0    82
-  22    LOD    0    3
-  23    SYS    0    1
-  24    LOD    0    3
-  25    LIT    0    1
-  26    OPR    0    1
-  27    STO    0    3
-  28    LOD    0    3
-  29    LIT    0    2
-  30    OPR    0    3
-  31    STO    0    4
-  32    LOD    0    4
-  33    SYS    0    1
-  34    JMP    0    52
-  35    LOD    0    3
-  36    LOD    0    4
-  37    OPR    0    1
-  38    SYS    0    1
-  39    SYS    0    3
+Line OP L M
+0 JMP 0 13
+1 INC 0 5
+2 LIT 0 5
+3 LIT 0 2
+4 OPR 0 1
+5 STO 0 3
+6 LOD 0 3
+7 LIT 0 1
+8 OPR 0 1
+9 STO 0 4
+10 LOD 0 3
+11 LOD 0 4
+12 OPR 0 1
+13 SYS 0 1
+14 LOD 0 3
+15 LIT 0 10
+16 OPR 0 7
+17 JPC 0 115
+18 LOD 0 3
+19 LIT 0 9
+20 OPR 0 5
+21 JPC 0 82
+22 LOD 0 3
+23 SYS 0 1
+24 LOD 0 3
+25 LIT 0 1
+26 OPR 0 1
+27 STO 0 3
+28 LOD 0 3
+29 LIT 0 2
+30 OPR 0 3
+31 STO 0 4
+32 LOD 0 4
+33 SYS 0 1
+34 JMP 0 52
+35 LOD 0 3
+36 LOD 0 4
+37 OPR 0 1
+38 SYS 0 1
+39 SYS 0 3
 
