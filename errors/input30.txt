@@ -10,7 +10,7 @@ begin
             i := i + 1;
             if i > n then
                 write sum  /* should print sum */
-            fi;
-        end;
+            fi
+        end
     write sum /* should print sum again */
 end.

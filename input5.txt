@@ -1,4 +1,0 @@
-var;
-begin
-x := y * 2;
-end.

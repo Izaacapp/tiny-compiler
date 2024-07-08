@@ -1,4 +1,0 @@
-var x, x;
-begin
-x := 2;
-end.

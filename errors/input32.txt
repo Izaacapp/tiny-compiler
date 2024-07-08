@@ -3,7 +3,7 @@ begin
     x := y * 2;
     y := y * 2;
     if x = y then
-        x := x + 1
+        x := x + 1;
     fi;
     y := y + 1;
     while x < y do

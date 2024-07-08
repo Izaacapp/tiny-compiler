@@ -1,1 +1,0 @@
-Error: const must be followed by identifier

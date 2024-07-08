@@ -8,10 +8,10 @@ begin
         begin 
            if x = 9 then
               write x
-           fi;
+           fi
            x := x + 1;
 		   y := x * 2;
 		   write y
-        end;
+        end
     write x + y
 end.

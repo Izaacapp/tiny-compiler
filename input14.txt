@@ -1,4 +1,0 @@
-var x, y;
-begin
-if x = y do x := 2;
-end.

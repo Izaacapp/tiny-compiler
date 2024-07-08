@@ -5,5 +5,5 @@ begin
     if b > 1 then
         begin
             write b;
-        end
+        end;
 end.

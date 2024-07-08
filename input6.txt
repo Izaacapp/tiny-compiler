@@ -1,4 +1,0 @@
-var x;
-begin
-read ;
-end.

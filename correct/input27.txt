@@ -10,8 +10,8 @@ begin
               write x
            fi;
            x := x + 1;
-		   y := x * 2;
-		   write y
+           y := x * 2;
+           write y
         end;
     write x + y
 end.

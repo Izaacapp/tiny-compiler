@@ -1,13 +1,13 @@
 Symbol Table:
 Kind | Name        | Value | Level | Address | Mark
 ---------------------------------------------------
-   1 | z           |     5 |     0 |       0 |     0
-   2 | x           |     0 |     0 |       3 |     0
-   2 | y           |     0 |     0 |       4 |     0
+   1 | z           |     5 |     0 |       0 |     1
+   2 | x           |     0 |     0 |       3 |     1
+   2 | y           |     0 |     0 |       4 |     1
 Assembly Code:
 Line    OP    L    M
    0    JMP    0    13
-   1    INC    0    6
+   1    INC    0    5
    2    LOD    0    4
    3    LIT    0    2
    4    OPR    0    3
