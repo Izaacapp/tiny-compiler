@@ -4,34 +4,36 @@
 #include <ctype.h>
 #include <stdarg.h>
 
-#define MAX_IDENTIFIER_LENGTH 11
-#define MAX_NUMBER_LENGTH 5
-#define MAX_BUFFER_LENGTH 1000
-#define MAX_SYMBOL_TABLE_SIZE 500
-#define MAX_CODE_LENGTH MAX_SYMBOL_TABLE_SIZE
-#define MEMORY_OFFSET 10
+// Constants and Data Structures
+#define MAX_ID_LENGTH 11
+#define MAX_NUM_LENGTH 5
+#define MAX_BUFFER_SIZE 1000
+#define SYMBOL_TABLE_SIZE 500
+#define CODE_ARRAY_SIZE SYMBOL_TABLE_SIZE
+#define INIT_MEMORY_OFFSET 10
 
 typedef enum {
-    ODDSYM = 1, IDENTSYM, NUMBERSYM, PLUSSYM, MINUSSYM, MULTSYM, SLASHSYM,
-    EQSYM, NEQSYM, LESSYM, LEQSYM, GTRSYM, GEQSYM, LPARENTSYM, RPARENTSYM,
-    COMMASYM, SEMICOLONSYM, PERIODSYM, BECOMESSYM, BEGINSYM, ENDSYM, IFSYM,
-    THENSYM, WHILESYM, DOSYM, CONSTSYM, VARSYM, WRITESYM, READSYM, FISYM
+    ODD_SYM = 1, IDENT_SYM, NUM_SYM, PLUS_SYM, MINUS_SYM, MULT_SYM, DIV_SYM,
+    EQUAL_SYM, NOT_EQUAL_SYM, LESS_SYM, LESS_EQ_SYM, GREATER_SYM, GREATER_EQ_SYM,
+    LEFT_PAREN_SYM, RIGHT_PAREN_SYM, COMMA_SYM, SEMICOLON_SYM, PERIOD_SYM,
+    ASSIGN_SYM, BEGIN_SYM, END_SYM, IF_SYM, THEN_SYM, WHILE_SYM, DO_SYM,
+    CONST_SYM, VAR_SYM, WRITE_SYM, READ_SYM, FI_SYM
 } TokenType;
 
 typedef struct {
-    char lexeme[MAX_BUFFER_LENGTH + 1];
-    char value[MAX_BUFFER_LENGTH + 1];
+    char lexeme[MAX_BUFFER_SIZE + 1];
+    char value[MAX_BUFFER_SIZE + 1];
 } Token;
 
 typedef struct {
     Token *tokens;
-    int size;
+    int count;
     int capacity;
 } TokenList;
 
 typedef struct {
-    int kind; // const = 1, var = 2
-    char name[MAX_IDENTIFIER_LENGTH + 1];
+    int type; // const = 1, var = 2
+    char name[10];
     int value;
     int level;
     int address;
@@ -44,28 +46,30 @@ typedef struct {
     int modifier;
 } Instruction;
 
+// Global Variables
 FILE *inputFile;
 FILE *outputFile;
-Symbol symbolTable[MAX_SYMBOL_TABLE_SIZE];
-Instruction code[MAX_CODE_LENGTH];
+Symbol symbolTable[SYMBOL_TABLE_SIZE];
+Instruction codeArray[CODE_ARRAY_SIZE];
 TokenList *tokenList;
-int codeIndex = 0, symbolIndex = 0, currentLevel = 0;
+int currentCodeIndex = 0, currentSymbolIndex = 0, currentLevel = 0;
 Token currentToken;
 
+// Function Prototypes
 char peekChar();
-void printBoth(const char *format, ...);
-void clearBuffer(char *str, int index);
-int handleReservedWord(char *buffer);
-int handleSpecialSymbol(char *buffer);
-int isSpecialSymbol(char c);
+void formattedPrint(const char *format, ...);
+void clearBuffer(char *str, int length);
+int checkReservedWord(char *buffer);
+int checkSpecialSymbol(char *buffer);
+int isSpecialCharacter(char c);
 TokenList *createTokenList();
 void destroyTokenList(TokenList *list);
-void appendToken(TokenList *list, Token token);
-void getNextToken();
-void emit(int opcode, int level, int modifier);
-void error(int errorCode, const char *message);
-int findSymbol(char *name);
-void addSymbol(int kind, char *name, int value, int level, int address);
+TokenList *appendToken(TokenList *list, Token token);
+void fetchNextToken();
+void generateCode(int opcode, int level, int modifier);
+void throwError(int errorCode, const char *message);
+int searchSymbolTable(char *name);
+void insertSymbol(int type, char *name, int value, int level, int address);
 void parseProgram();
 void parseBlock();
 void parseConstDeclaration();
@@ -75,14 +79,15 @@ void parseCondition();
 void parseExpression();
 void parseTerm();
 void parseFactor();
-void printSymbolTable();
-void printInstructions();
-void getOpName(int opcode, char *name);
-void generateElfFile();
+void displaySymbolTable();
+void displayCode();
+void fetchOpcodeName(int opcode, char *name);
+void generateELFFile();
 
+// Main Function
 int main(int argc, char *argv[]) {
     if (argc != 3) {
-        printBoth("Usage: %s <input file> <output file>\n", argv[0]);
+        formattedPrint("Usage: %s <input file> <output file>\n", argv[0]);
         return 1;
     }
 
@@ -90,33 +95,34 @@ int main(int argc, char *argv[]) {
     outputFile = fopen(argv[2], "w");
 
     if (inputFile == NULL) {
-        printBoth("Error: Could not open input file %s\n", argv[1]);
+        formattedPrint("Error: Could not open input file %s\n", argv[1]);
         exit(1);
     }
 
     if (outputFile == NULL) {
-        printBoth("Error: Could not open output file %s\n", argv[2]);
+        formattedPrint("Error: Could not open output file %s\n", argv[2]);
         exit(1);
     }
 
     tokenList = createTokenList();
 
     char c;
-    char buffer[MAX_BUFFER_LENGTH + 1] = {0};
+    char buffer[MAX_BUFFER_SIZE + 1] = {0};
     int bufferIndex = 0;
 
+    // Tokenize the input
     while ((c = fgetc(inputFile)) != EOF) {
-        if (iscntrl(c) || isspace(c)) continue;
+        if (isspace(c) || iscntrl(c)) continue;
         if (isdigit(c)) {
             buffer[bufferIndex++] = c;
             while (1) {
                 char nextChar = peekChar();
-                if (isspace(nextChar) || isSpecialSymbol(nextChar)) {
+                if (isspace(nextChar) || isSpecialCharacter(nextChar)) {
                     Token token;
-                    if (bufferIndex > MAX_NUMBER_LENGTH) {
-                        error(1, "Number too long");
+                    if (bufferIndex > MAX_NUM_LENGTH) {
+                        throwError(1, "Number exceeds maximum length");
                     } else {
-                        sprintf(token.value, "%d", NUMBERSYM);
+                        sprintf(token.value, "%d", NUM_SYM);
                         strcpy(token.lexeme, buffer);
                         appendToken(tokenList, token);
                     }
@@ -129,7 +135,7 @@ int main(int argc, char *argv[]) {
                 } else if (nextChar == EOF) break;
                 else if (isalpha(nextChar)) {
                     Token token;
-                    sprintf(token.value, "%d", NUMBERSYM);
+                    sprintf(token.value, "%d", NUM_SYM);
                     strcpy(token.lexeme, buffer);
                     appendToken(tokenList, token);
                     clearBuffer(buffer, bufferIndex);
@@ -141,8 +147,8 @@ int main(int argc, char *argv[]) {
             buffer[bufferIndex++] = c;
             while (1) {
                 char nextChar = peekChar();
-                if (isspace(nextChar) || isSpecialSymbol(nextChar) || nextChar == EOF) {
-                    int tokenValue = handleReservedWord(buffer);
+                if (isspace(nextChar) || isSpecialCharacter(nextChar) || nextChar == EOF) {
+                    int tokenValue = checkReservedWord(buffer);
                     if (tokenValue) {
                         Token token;
                         sprintf(token.value, "%d", tokenValue);
@@ -153,10 +159,10 @@ int main(int argc, char *argv[]) {
                         break;
                     } else {
                         Token token;
-                        if (bufferIndex > MAX_IDENTIFIER_LENGTH) {
-                            error(2, "Identifier too long");
+                        if (bufferIndex > MAX_ID_LENGTH) {
+                            throwError(2, "Identifier exceeds maximum length");
                         } else {
-                            sprintf(token.value, "%d", IDENTSYM);
+                            sprintf(token.value, "%d", IDENT_SYM);
                             strcpy(token.lexeme, buffer);
                             appendToken(tokenList, token);
                         }
@@ -169,11 +175,11 @@ int main(int argc, char *argv[]) {
                     buffer[bufferIndex++] = c;
                 }
             }
-        } else if (isSpecialSymbol(c)) {
+        } else if (isSpecialCharacter(c)) {
             buffer[bufferIndex++] = c;
             char nextChar = peekChar();
 
-            if (isSpecialSymbol(nextChar)) {
+            if (isSpecialCharacter(nextChar)) {
                 if (c == '/' && nextChar == '*') {
                     clearBuffer(buffer, bufferIndex);
                     bufferIndex = 0;
@@ -201,14 +207,14 @@ int main(int argc, char *argv[]) {
 
                 if (nextChar == ';') {
                     Token token;
-                    int tokenValue = handleSpecialSymbol(buffer);
-                    if (!tokenValue) error(3, "Invalid symbol");
+                    int tokenValue = checkSpecialSymbol(buffer);
+                    if (!tokenValue) throwError(3, "Invalid symbol");
 
                     sprintf(token.value, "%d", tokenValue);
                     strcpy(token.lexeme, buffer);
                     appendToken(tokenList, token);
 
-                    sprintf(token.value, "%d", SEMICOLONSYM);
+                    sprintf(token.value, "%d", SEMICOLON_SYM);
                     strcpy(token.lexeme, ";");
                     appendToken(tokenList, token);
 
@@ -222,8 +228,8 @@ int main(int argc, char *argv[]) {
                 buffer[bufferIndex++] = c;
 
                 Token token;
-                int tokenValue = handleSpecialSymbol(buffer);
-                if (!tokenValue) error(3, "Invalid symbol");
+                int tokenValue = checkSpecialSymbol(buffer);
+                if (!tokenValue) throwError(3, "Invalid symbol");
                 else {
                     sprintf(token.value, "%d", tokenValue);
                     strcpy(token.lexeme, buffer);
@@ -234,8 +240,8 @@ int main(int argc, char *argv[]) {
                 bufferIndex = 0;
             } else {
                 Token token;
-                int tokenValue = handleSpecialSymbol(buffer);
-                if (!tokenValue) error(3, "Invalid symbol");
+                int tokenValue = checkSpecialSymbol(buffer);
+                if (!tokenValue) throwError(3, "Invalid symbol");
                 else {
                     sprintf(token.value, "%d", tokenValue);
                     strcpy(token.lexeme, buffer);
@@ -248,16 +254,16 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    code[0].opcode = 7;
-    code[0].level = 0;
-    code[0].modifier = 3 + MEMORY_OFFSET;
-    codeIndex++;
+    codeArray[0].opcode = 7;
+    codeArray[0].level = 0;
+    codeArray[0].modifier = 3 + INIT_MEMORY_OFFSET;
+    currentCodeIndex++;
 
     parseProgram();
 
-    printSymbolTable();
-    printInstructions();
-    generateElfFile();
+    displayCode();
+    displaySymbolTable();
+    generateELFFile();
 
     destroyTokenList(tokenList);
     fclose(inputFile);
@@ -265,13 +271,14 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
+// Function Implementations
 char peekChar() {
     int c = getc(inputFile);
     ungetc(c, inputFile);
     return (char)c;
 }
 
-void printBoth(const char *format, ...) {
+void formattedPrint(const char *format, ...) {
     va_list args;
     va_start(args, format);
     vprintf(format, args);
@@ -282,46 +289,46 @@ void printBoth(const char *format, ...) {
     va_end(args);
 }
 
-void clearBuffer(char *str, int index) {
-    for (int i = 0; i < index; i++) str[i] = '\0';
+void clearBuffer(char *str, int length) {
+    for (int i = 0; i < length; i++) str[i] = '\0';
 }
 
-int handleReservedWord(char *buffer) {
-    if (strcmp(buffer, "const") == 0) return CONSTSYM;
-    else if (strcmp(buffer, "var") == 0) return VARSYM;
-    else if (strcmp(buffer, "begin") == 0) return BEGINSYM;
-    else if (strcmp(buffer, "end") == 0) return ENDSYM;
-    else if (strcmp(buffer, "if") == 0) return IFSYM;
-    else if (strcmp(buffer, "then") == 0) return THENSYM;
-    else if (strcmp(buffer, "while") == 0) return WHILESYM;
-    else if (strcmp(buffer, "do") == 0) return DOSYM;
-    else if (strcmp(buffer, "read") == 0) return READSYM;
-    else if (strcmp(buffer, "write") == 0) return WRITESYM;
-    else if (strcmp(buffer, "fi") == 0) return FISYM;
-    return 0;
+int checkReservedWord(char *buffer) {
+    if (strcmp(buffer, "const") == 0) return CONST_SYM;
+    else if (strcmp(buffer, "var") == 0) return VAR_SYM;
+    else if (strcmp(buffer, "begin") == 0) return BEGIN_SYM;
+    else if (strcmp(buffer, "end") == 0) return END_SYM;
+    else if (strcmp(buffer, "if") == 0) return IF_SYM;
+    else if (strcmp(buffer, "then") == 0) return THEN_SYM;
+    else if (strcmp(buffer, "while") == 0) return WHILE_SYM;
+    else if (strcmp(buffer, "do") == 0) return DO_SYM;
+    else if (strcmp(buffer, "read") == 0) return READ_SYM;
+    else if (strcmp(buffer, "write") == 0) return WRITE_SYM;
+    else if (strcmp(buffer, "fi") == 0) return FI_SYM;
+    return 0; // Default case: identifier
 }
 
-int handleSpecialSymbol(char *buffer) {
-    if (strcmp(buffer, "+") == 0) return PLUSSYM;
-    else if (strcmp(buffer, "-") == 0) return MINUSSYM;
-    else if (strcmp(buffer, "*") == 0) return MULTSYM;
-    else if (strcmp(buffer, "/") == 0) return SLASHSYM;
-    else if (strcmp(buffer, "(") == 0) return LPARENTSYM;
-    else if (strcmp(buffer, ")") == 0) return RPARENTSYM;
-    else if (strcmp(buffer, ",") == 0) return COMMASYM;
-    else if (strcmp(buffer, ";") == 0) return SEMICOLONSYM;
-    else if (strcmp(buffer, ".") == 0) return PERIODSYM;
-    else if (strcmp(buffer, "=") == 0) return EQSYM;
-    else if (strcmp(buffer, "<") == 0) return LESSYM;
-    else if (strcmp(buffer, ">") == 0) return GTRSYM;
-    else if (strcmp(buffer, ":=") == 0) return BECOMESSYM;
-    else if (strcmp(buffer, "<=") == 0) return LEQSYM;
-    else if (strcmp(buffer, ">=") == 0) return GEQSYM;
-    else if (strcmp(buffer, "<>") == 0) return NEQSYM;
-    return 0;
+int checkSpecialSymbol(char *buffer) {
+    if (strcmp(buffer, "+") == 0) return PLUS_SYM;
+    else if (strcmp(buffer, "-") == 0) return MINUS_SYM;
+    else if (strcmp(buffer, "*") == 0) return MULT_SYM;
+    else if (strcmp(buffer, "/") == 0) return DIV_SYM;
+    else if (strcmp(buffer, "(") == 0) return LEFT_PAREN_SYM;
+    else if (strcmp(buffer, ")") == 0) return RIGHT_PAREN_SYM;
+    else if (strcmp(buffer, ",") == 0) return COMMA_SYM;
+    else if (strcmp(buffer, ";") == 0) return SEMICOLON_SYM;
+    else if (strcmp(buffer, ".") == 0) return PERIOD_SYM;
+    else if (strcmp(buffer, "=") == 0) return EQUAL_SYM;
+    else if (strcmp(buffer, "<") == 0) return LESS_SYM;
+    else if (strcmp(buffer, ">") == 0) return GREATER_SYM;
+    else if (strcmp(buffer, ":=") == 0) return ASSIGN_SYM;
+    else if (strcmp(buffer, "<=") == 0) return LESS_EQ_SYM;
+    else if (strcmp(buffer, ">=") == 0) return GREATER_EQ_SYM;
+    else if (strcmp(buffer, "<>") == 0) return NOT_EQUAL_SYM;
+    return 0; // Default case: invalid symbol
 }
 
-int isSpecialSymbol(char c) {
+int isSpecialCharacter(char c) {
     return (c == '+' || c == '-' || c == '*' || c == '/' || c == '(' || c == ')' ||
             c == '=' || c == ',' || c == '.' || c == '<' || c == '>' || c == ':' ||
             c == ';');
@@ -329,7 +336,7 @@ int isSpecialSymbol(char c) {
 
 TokenList *createTokenList() {
     TokenList *list = malloc(sizeof(TokenList));
-    list->size = 0;
+    list->count = 0;
     list->capacity = 10;
     list->tokens = malloc(sizeof(Token) * list->capacity);
     return list;
@@ -340,40 +347,41 @@ void destroyTokenList(TokenList *list) {
     free(list);
 }
 
-void appendToken(TokenList *list, Token token) {
-    if (list->size == list->capacity) {
+TokenList *appendToken(TokenList *list, Token token) {
+    if (list->count == list->capacity) {
         list->capacity *= 2;
         list->tokens = realloc(list->tokens, sizeof(Token) * list->capacity);
     }
-    list->tokens[list->size++] = token;
+    list->tokens[list->count++] = token;
+    return list;
 }
 
-void getNextToken() {
+void fetchNextToken() {
     currentToken = tokenList->tokens[0];
-    for (int i = 0; i < tokenList->size - 1; i++) {
+    for (int i = 0; i < tokenList->count - 1; i++) {
         tokenList->tokens[i] = tokenList->tokens[i + 1];
     }
-    tokenList->size--;
+    tokenList->count--;
 }
 
-void emit(int opcode, int level, int modifier) {
-    if (codeIndex > MAX_CODE_LENGTH) {
-        error(16, "Program too long");
+void generateCode(int opcode, int level, int modifier) {
+    if (currentCodeIndex > CODE_ARRAY_SIZE) {
+        throwError(16, "Program exceeds maximum length");
     } else {
-        code[codeIndex].opcode = opcode;
-        code[codeIndex].level = level;
-        code[codeIndex].modifier = modifier;
-        codeIndex++;
+        codeArray[currentCodeIndex].opcode = opcode;
+        codeArray[currentCodeIndex].level = level;
+        codeArray[currentCodeIndex].modifier = modifier;
+        currentCodeIndex++;
     }
 }
 
-void error(int errorCode, const char *message) {
-    printBoth("Error: %s\n", message);
+void throwError(int errorCode, const char *message) {
+    formattedPrint("Error: %s\n", message);
     exit(1);
 }
 
-int findSymbol(char *name) {
-    for (int i = 0; i < symbolIndex; i++) {
+int searchSymbolTable(char *name) {
+    for (int i = 0; i < currentSymbolIndex; i++) {
         if (strcmp(name, symbolTable[i].name) == 0) {
             return i;
         }
@@ -381,294 +389,294 @@ int findSymbol(char *name) {
     return -1;
 }
 
-void addSymbol(int kind, char *name, int value, int level, int address) {
-    symbolTable[symbolIndex].kind = kind;
-    strcpy(symbolTable[symbolIndex].name, name);
-    symbolTable[symbolIndex].value = value;
-    symbolTable[symbolIndex].level = level;
-    symbolTable[symbolIndex].address = address;
-    symbolTable[symbolIndex].mark = 0;
-    symbolIndex++;
+void insertSymbol(int type, char *name, int value, int level, int address) {
+    symbolTable[currentSymbolIndex].type = type;
+    strcpy(symbolTable[currentSymbolIndex].name, name);
+    symbolTable[currentSymbolIndex].value = value;
+    symbolTable[currentSymbolIndex].level = level;
+    symbolTable[currentSymbolIndex].address = address;
+    symbolTable[currentSymbolIndex].mark = 0;
+    currentSymbolIndex++;
 }
 
 void parseProgram() {
-    getNextToken();
+    fetchNextToken();
     parseBlock();
-    if (strtol(currentToken.value, NULL, 10) != PERIODSYM) {
-        error(1, "Program must end with period");
+    if (atoi(currentToken.value) != PERIOD_SYM) {
+        throwError(1, "Program must end with a period");
     }
-    emit(9, 0, 3);
+    generateCode(9, 0, 3);
 }
 
 void parseBlock() {
     parseConstDeclaration();
-    int numVars = parseVarDeclaration();
-    emit(6, 0, 3 + numVars);
+    int varCount = parseVarDeclaration();
+    generateCode(6, 0, 3 + varCount);
     parseStatement();
 }
 
 void parseConstDeclaration() {
-    char name[MAX_IDENTIFIER_LENGTH + 1];
-    if (strtol(currentToken.value, NULL, 10) == CONSTSYM) {
+    char name[MAX_ID_LENGTH + 1];
+    if (atoi(currentToken.value) == CONST_SYM) {
         do {
-            getNextToken();
-            if (strtol(currentToken.value, NULL, 10) != IDENTSYM) {
-                error(2, "const, var, and read keywords must be followed by identifier");
+            fetchNextToken();
+            if (atoi(currentToken.value) != IDENT_SYM) {
+                throwError(2, "Constant declaration must be followed by an identifier");
             }
             strcpy(name, currentToken.lexeme);
-            if (findSymbol(currentToken.lexeme) != -1) {
-                error(3, "Symbol name has already been declared");
+            if (searchSymbolTable(currentToken.lexeme) != -1) {
+                throwError(3, "Identifier already declared");
             }
-            getNextToken();
-            if (strtol(currentToken.value, NULL, 10) != EQSYM) {
-                error(4, "Constants must be assigned with =");
+            fetchNextToken();
+            if (atoi(currentToken.value) != EQUAL_SYM) {
+                throwError(4, "Constant must be assigned with '='");
             }
-            getNextToken();
-            if (strtol(currentToken.value, NULL, 10) != NUMBERSYM) {
-                error(5, "Constants must be assigned an integer value");
+            fetchNextToken();
+            if (atoi(currentToken.value) != NUM_SYM) {
+                throwError(5, "Constant must be assigned a numeric value");
             }
-            addSymbol(1, name, strtol(currentToken.lexeme, NULL, 10), currentLevel, 0);
-            getNextToken();
-        } while (strtol(currentToken.value, NULL, 10) == COMMASYM);
-        if (strtol(currentToken.value, NULL, 10) != SEMICOLONSYM) {
-            error(6, "Constant and variable declarations must be followed by a semicolon");
+            insertSymbol(1, name, atoi(currentToken.lexeme), currentLevel, 0);
+            fetchNextToken();
+        } while (atoi(currentToken.value) == COMMA_SYM);
+        if (atoi(currentToken.value) != SEMICOLON_SYM) {
+            throwError(6, "Constant declaration must end with a semicolon");
         }
-        getNextToken();
+        fetchNextToken();
     }
 }
 
 int parseVarDeclaration() {
-    int numVars = 0;
-    if (strtol(currentToken.value, NULL, 10) == VARSYM) {
+    int varCount = 0;
+    if (atoi(currentToken.value) == VAR_SYM) {
         do {
-            numVars++;
-            getNextToken();
-            if (strtol(currentToken.value, NULL, 10) != IDENTSYM) {
-                error(2, "const, var, and read keywords must be followed by identifier");
+            varCount++;
+            fetchNextToken();
+            if (atoi(currentToken.value) != IDENT_SYM) {
+                throwError(2, "Variable declaration must be followed by an identifier");
             }
-            if (findSymbol(currentToken.lexeme) != -1) {
-                error(3, "Symbol name has already been declared");
+            if (searchSymbolTable(currentToken.lexeme) != -1) {
+                throwError(3, "Identifier already declared");
             }
-            addSymbol(2, currentToken.lexeme, 0, 0, numVars + 2);
-            getNextToken();
-        } while (strtol(currentToken.value, NULL, 10) == COMMASYM);
-        if (strtol(currentToken.value, NULL, 10) != SEMICOLONSYM) {
-            error(6, "Constant and variable declarations must be followed by a semicolon");
+            insertSymbol(2, currentToken.lexeme, 0, currentLevel, varCount + 2);
+            fetchNextToken();
+        } while (atoi(currentToken.value) == COMMA_SYM);
+        if (atoi(currentToken.value) != SEMICOLON_SYM) {
+            throwError(6, "Variable declaration must end with a semicolon");
         }
-        getNextToken();
+        fetchNextToken();
     }
-    return numVars;
+    return varCount;
 }
 
 void parseStatement() {
-    if (strtol(currentToken.value, NULL, 10) == IDENTSYM) {
-        int symbolIndex = findSymbol(currentToken.lexeme);
+    if (atoi(currentToken.value) == IDENT_SYM) {
+        int symbolIndex = searchSymbolTable(currentToken.lexeme);
         if (symbolIndex == -1) {
-            error(7, "Undeclared identifier");
+            throwError(7, "Undeclared identifier");
         }
-        if (symbolTable[symbolIndex].kind != 2) {
-            error(8, "Only variable values may be altered");
+        if (symbolTable[symbolIndex].type != 2) {
+            throwError(8, "Only variable values can be altered");
         }
-        getNextToken();
-        if (strtol(currentToken.value, NULL, 10) != BECOMESSYM) {
-            error(9, "Assignment statements must use :=");
+        fetchNextToken();
+        if (atoi(currentToken.value) != ASSIGN_SYM) {
+            throwError(9, "Assignment must use ':='");
         }
-        getNextToken();
+        fetchNextToken();
         parseExpression();
-        emit(4, 0, symbolTable[symbolIndex].address);
-    } else if (strtol(currentToken.value, NULL, 10) == BEGINSYM) {
+        generateCode(4, 0, symbolTable[symbolIndex].address);
+    } else if (atoi(currentToken.value) == BEGIN_SYM) {
         do {
-            getNextToken();
+            fetchNextToken();
             parseStatement();
-        } while (strtol(currentToken.value, NULL, 10) == SEMICOLONSYM);
-        if (strtol(currentToken.value, NULL, 10) != ENDSYM) {
-            error(10, "begin must be followed by end");
+        } while (atoi(currentToken.value) == SEMICOLON_SYM);
+        if (atoi(currentToken.value) != END_SYM) {
+            throwError(10, "Begin must be followed by end");
         }
-        getNextToken();
-    } else if (strtol(currentToken.value, NULL, 10) == IFSYM) {
-        getNextToken();
+        fetchNextToken();
+    } else if (atoi(currentToken.value) == IF_SYM) {
+        fetchNextToken();
         parseCondition();
-        int jumpIndex = codeIndex;
-        emit(8, 0, 0);
-        if (strtol(currentToken.value, NULL, 10) != THENSYM) {
-            error(11, "if must be followed by then");
+        int jumpIndex = currentCodeIndex;
+        generateCode(8, 0, 0);
+        if (atoi(currentToken.value) != THEN_SYM) {
+            throwError(11, "If must be followed by then");
         }
-        getNextToken();
+        fetchNextToken();
         parseStatement();
-        if (strtol(currentToken.value, NULL, 10) != FISYM) {
-            error(15, "then must be followed by fi");
+        if (atoi(currentToken.value) != FI_SYM) {
+            throwError(15, "Then must be followed by fi");
         }
-        getNextToken();
-        code[jumpIndex].modifier = codeIndex;
-    } else if (strtol(currentToken.value, NULL, 10) == WHILESYM) {
-        getNextToken();
-        int loopIndex = codeIndex;
+        fetchNextToken();
+        codeArray[jumpIndex].modifier = currentCodeIndex;
+    } else if (atoi(currentToken.value) == WHILE_SYM) {
+        fetchNextToken();
+        int loopIndex = currentCodeIndex;
         parseCondition();
-        if (strtol(currentToken.value, NULL, 10) != DOSYM) {
-            error(12, "while must be followed by do");
+        if (atoi(currentToken.value) != DO_SYM) {
+            throwError(12, "While must be followed by do");
         }
-        getNextToken();
-        int jumpIndex = codeIndex;
-        emit(8, 0, 0);
+        fetchNextToken();
+        int jumpIndex = currentCodeIndex;
+        generateCode(8, 0, 0);
         parseStatement();
-        emit(7, 0, loopIndex);
-        code[jumpIndex].modifier = codeIndex;
-    } else if (strtol(currentToken.value, NULL, 10) == READSYM) {
-        getNextToken();
-        if (strtol(currentToken.value, NULL, 10) != IDENTSYM) {
-            error(2, "const, var, and read keywords must be followed by identifier");
+        generateCode(7, 0, loopIndex);
+        codeArray[jumpIndex].modifier = currentCodeIndex;
+    } else if (atoi(currentToken.value) == READ_SYM) {
+        fetchNextToken();
+        if (atoi(currentToken.value) != IDENT_SYM) {
+            throwError(2, "Read must be followed by an identifier");
         }
-        int symbolIndex = findSymbol(currentToken.lexeme);
+        int symbolIndex = searchSymbolTable(currentToken.lexeme);
         if (symbolIndex == -1) {
-            error(7, "Undeclared identifier");
+            throwError(7, "Undeclared identifier");
         }
-        if (symbolTable[symbolIndex].kind != 2) {
-            error(8, "Only variable values may be altered");
+        if (symbolTable[symbolIndex].type != 2) {
+            throwError(8, "Only variable values can be altered");
         }
-        getNextToken();
-        emit(9, 0, 2);
-        emit(4, 0, symbolTable[symbolIndex].address);
-    } else if (strtol(currentToken.value, NULL, 10) == WRITESYM) {
-        getNextToken();
+        fetchNextToken();
+        generateCode(9, 0, 2);
+        generateCode(4, 0, symbolTable[symbolIndex].address);
+    } else if (atoi(currentToken.value) == WRITE_SYM) {
+        fetchNextToken();
         parseExpression();
-        emit(9, 0, 1);
+        generateCode(9, 0, 1);
     }
 }
 
 void parseCondition() {
-    if (strtol(currentToken.value, NULL, 10) == ODDSYM) {
-        getNextToken();
+    if (atoi(currentToken.value) == ODD_SYM) {
+        fetchNextToken();
         parseExpression();
-        emit(2, 0, 11);
+        generateCode(2, 0, 11);
     } else {
         parseExpression();
-        switch (strtol(currentToken.value, NULL, 10)) {
-            case EQSYM:
-                getNextToken();
+        switch (atoi(currentToken.value)) {
+            case EQUAL_SYM:
+                fetchNextToken();
                 parseExpression();
-                emit(2, 0, 5);
+                generateCode(2, 0, 5);
                 break;
-            case NEQSYM:
-                getNextToken();
+            case NOT_EQUAL_SYM:
+                fetchNextToken();
                 parseExpression();
-                emit(2, 0, 6);
+                generateCode(2, 0, 6);
                 break;
-            case LESSYM:
-                getNextToken();
+            case LESS_SYM:
+                fetchNextToken();
                 parseExpression();
-                emit(2, 0, 7);
+                generateCode(2, 0, 7);
                 break;
-            case LEQSYM:
-                getNextToken();
+            case LESS_EQ_SYM:
+                fetchNextToken();
                 parseExpression();
-                emit(2, 0, 8);
+                generateCode(2, 0, 8);
                 break;
-            case GTRSYM:
-                getNextToken();
+            case GREATER_SYM:
+                fetchNextToken();
                 parseExpression();
-                emit(2, 0, 9);
+                generateCode(2, 0, 9);
                 break;
-            case GEQSYM:
-                getNextToken();
+            case GREATER_EQ_SYM:
+                fetchNextToken();
                 parseExpression();
-                emit(2, 0, 10);
+                generateCode(2, 0, 10);
                 break;
             default:
-                error(13, "Condition must contain comparison operator");
+                throwError(13, "Condition must have a comparison operator");
                 break;
         }
     }
 }
 
 void parseExpression() {
-    if (strtol(currentToken.value, NULL, 10) == MINUSSYM) {
-        getNextToken();
+    if (atoi(currentToken.value) == MINUS_SYM) {
+        fetchNextToken();
         parseTerm();
-        emit(2, 0, 1);
+        generateCode(2, 0, 1);
     } else {
         parseTerm();
     }
 
-    while (strtol(currentToken.value, NULL, 10) == PLUSSYM || strtol(currentToken.value, NULL, 10) == MINUSSYM) {
-        if (strtol(currentToken.value, NULL, 10) == PLUSSYM) {
-            getNextToken();
+    while (atoi(currentToken.value) == PLUS_SYM || atoi(currentToken.value) == MINUS_SYM) {
+        if (atoi(currentToken.value) == PLUS_SYM) {
+            fetchNextToken();
             parseTerm();
-            emit(2, 0, 1);
+            generateCode(2, 0, 1);
         } else {
-            getNextToken();
+            fetchNextToken();
             parseTerm();
-            emit(2, 0, 2);
+            generateCode(2, 0, 2);
         }
     }
 }
 
 void parseTerm() {
     parseFactor();
-    while (strtol(currentToken.value, NULL, 10) == MULTSYM || strtol(currentToken.value, NULL, 10) == SLASHSYM) {
-        if (strtol(currentToken.value, NULL, 10) == MULTSYM) {
-            getNextToken();
+    while (atoi(currentToken.value) == MULT_SYM || atoi(currentToken.value) == DIV_SYM) {
+        if (atoi(currentToken.value) == MULT_SYM) {
+            fetchNextToken();
             parseFactor();
-            emit(2, 0, 3);
+            generateCode(2, 0, 3);
         } else {
-            getNextToken();
+            fetchNextToken();
             parseFactor();
-            emit(2, 0, 4);
+            generateCode(2, 0, 4);
         }
     }
 }
 
 void parseFactor() {
-    if (strtol(currentToken.value, NULL, 10) == IDENTSYM) {
-        int symbolIndex = findSymbol(currentToken.lexeme);
+    if (atoi(currentToken.value) == IDENT_SYM) {
+        int symbolIndex = searchSymbolTable(currentToken.lexeme);
         if (symbolIndex == -1) {
-            error(7, "Undeclared identifier");
+            throwError(7, "Undeclared identifier");
         }
-        if (symbolTable[symbolIndex].kind == 1) {
-            emit(1, 0, symbolTable[symbolIndex].value);
+        if (symbolTable[symbolIndex].type == 1) {
+            generateCode(1, 0, symbolTable[symbolIndex].value);
         } else {
-            emit(3, currentLevel - symbolTable[symbolIndex].level, symbolTable[symbolIndex].address);
+            generateCode(3, currentLevel - symbolTable[symbolIndex].level, symbolTable[symbolIndex].address);
         }
-        getNextToken();
-    } else if (strtol(currentToken.value, NULL, 10) == NUMBERSYM) {
-        emit(1, 0, strtol(currentToken.lexeme, NULL, 10));
-        getNextToken();
-    } else if (strtol(currentToken.value, NULL, 10) == LPARENTSYM) {
-        getNextToken();
+        fetchNextToken();
+    } else if (atoi(currentToken.value) == NUM_SYM) {
+        generateCode(1, 0, atoi(currentToken.lexeme));
+        fetchNextToken();
+    } else if (atoi(currentToken.value) == LEFT_PAREN_SYM) {
+        fetchNextToken();
         parseExpression();
-        if (strtol(currentToken.value, NULL, 10) != RPARENTSYM) {
-            error(14, "Right parenthesis must follow left parenthesis");
+        if (atoi(currentToken.value) != RIGHT_PAREN_SYM) {
+            throwError(14, "Right parenthesis must follow left parenthesis");
         }
-        getNextToken();
+        fetchNextToken();
     } else {
-        error(15, "Arithmetic expressions must contain operands, parentheses, numbers, or symbols");
+        throwError(15, "Invalid expression");
     }
 }
 
-void printSymbolTable() {
-    printBoth("\nSymbol Table:\n");
-    printBoth("%10s | %10s | %10s | %10s | %10s | %10s\n", "Kind", "Name", "Value", "Level", "Address", "Mark");
-    printBoth("    -----------------------------------------------------------------------\n");
+void displaySymbolTable() {
+    formattedPrint("\nSymbol Table:\n");
+    formattedPrint("%10s | %10s | %10s | %10s | %10s | %10s\n", "Type", "Name", "Value", "Level", "Address", "Mark");
+    formattedPrint("-----------------------------------------------------------------------\n");
 
-    for (int i = 0; i < symbolIndex; i++) {
+    for (int i = 0; i < currentSymbolIndex; i++) {
         symbolTable[i].mark = 1;
-        if (symbolTable[i].kind == 1)
-            printBoth("%10d | %10s | %10d | %10s | %10s | %10d\n", symbolTable[i].kind, symbolTable[i].name, symbolTable[i].value, "-", "-", symbolTable[i].mark);
+        if (symbolTable[i].type == 1)
+            formattedPrint("%10d | %10s | %10d | %10s | %10s | %10d\n", symbolTable[i].type, symbolTable[i].name, symbolTable[i].value, "-", "-", symbolTable[i].mark);
         else
-            printBoth("%10d | %10s | %10d | %10d | %10d | %10d\n", symbolTable[i].kind, symbolTable[i].name, symbolTable[i].value, symbolTable[i].level, symbolTable[i].address, symbolTable[i].mark);
+            formattedPrint("%10d | %10s | %10d | %10d | %10d | %10d\n", symbolTable[i].type, symbolTable[i].name, symbolTable[i].value, symbolTable[i].level, symbolTable[i].address, symbolTable[i].mark);
     }
 }
 
-void printInstructions() {
-    printBoth("Assembly Code:\n");
-    printBoth("%10s %10s %10s %10s\n", "Line", "OP", "L", "M");
-    for (int i = 0; i < codeIndex; i++) {
-        char name[4];
-        getOpName(code[i].opcode, name);
-        printBoth("%10d %10s %10d %10d\n", i, name, code[i].level, code[i].modifier);
+void displayCode() {
+    formattedPrint("Assembly Code:\n");
+    formattedPrint("%10s %10s %10s %10s\n", "Line", "Op", "L", "M");
+    for (int i = 0; i < currentCodeIndex; i++) {
+        char opcodeName[4];
+        fetchOpcodeName(codeArray[i].opcode, opcodeName);
+        formattedPrint("%10d %10s %10d %10d\n", i, opcodeName, codeArray[i].level, codeArray[i].modifier);
     }
 }
 
-void getOpName(int opcode, char *name) {
+void fetchOpcodeName(int opcode, char *name) {
     switch (opcode) {
         case 1: strcpy(name, "LIT"); break;
         case 2: strcpy(name, "OPR"); break;
@@ -681,15 +689,15 @@ void getOpName(int opcode, char *name) {
     }
 }
 
-void generateElfFile() {
+void generateELFFile() {
     FILE *elfFile = fopen("output.elf", "w");
     if (elfFile == NULL) {
-        printBoth("Error: Could not create ELF file\n");
+        formattedPrint("Error: Unable to create ELF file\n");
         return;
     }
 
-    for (int i = 0; i < codeIndex; i++) {
-        fprintf(elfFile, "%d %d %d\n", code[i].opcode, code[i].level, code[i].modifier);
+    for (int i = 0; i < currentCodeIndex; i++) {
+        fprintf(elfFile, "%d %d %d\n", codeArray[i].opcode, codeArray[i].level, codeArray[i].modifier);
     }
 
     fclose(elfFile);
