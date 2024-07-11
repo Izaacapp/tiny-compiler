@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Compile the parsercodegen.c program
-gcc parsercodegen.c -o parsercodegen
+gcc parsercodegen.c -o a.out
 if [ $? -ne 0 ]; then
   echo "Compilation failed"
   exit 1
@@ -52,10 +52,12 @@ run_test() {
 
   echo "Running test with input: $input_file" | tee -a $log_file
 
-  # Run the parsercodegen program with the input file
-  ./parsercodegen "$input_file" "$temp_output_file"
+  # Run the a.out program with the input file
+  ./a.out "$input_file" "$temp_output_file"
   if [ $? -ne 0 ]; then
     echo "Execution failed for input: $input_file" | tee -a $log_file
+    echo "=====================================================================================================================" >> $log_file
+    return
   fi
 
   # Remove trailing whitespaces for comparison
