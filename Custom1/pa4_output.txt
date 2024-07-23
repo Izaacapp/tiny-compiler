@@ -1,0 +1,40 @@
+Line     OP  L   M
+  0     JMP  0   76
+  1     JMP  0   61
+  2     JMP  0   19
+  3     INC  0   4
+  4     LOD  0   3
+  5     LIT  0   5
+  6     ADD  0   1
+  7     STO  0   3
+  8     LOD  2   4
+  9     LIT  0   2
+ 10     ADD  0   1
+ 11     STO  2   4
+ 12     LOD  0   3
+ 13     LOD  2   4
+ 14     ADD  0   1
+ 15     STO  1   3
+ 16     RTN  0   0
+ 17     INC  0   4
+ 18     CAL  0   16
+ 19     LOD  0   3
+ 20     SYS  0   1
+ 21     RTN  0   0
+ 22     INC  0   5
+ 23     CAL  0   13
+ 24     LOD  0   3
+ 25     SYS  0   1
+ 26     LOD  0   4
+ 27     SYS  0   1
+ 28     SYS  0   3
+
+
+Kind | Name        | Value | Level | Address | Mark
+---------------------------------------------------
+2    | a           | 0     | 0     | 3       | 1
+2    | b           | 0     | 0     | 4       | 1
+3    | test        | 0     | 0     | 13      | 1
+2    | c           | 0     | 1     | 3       | 1
+3    | test2       | 0     | 1     | 16      | 1
+2    | a           | 0     | 2     | 3       | 1

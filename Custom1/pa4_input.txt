@@ -1,0 +1,19 @@
+var a, b;
+procedure test;
+	var c;
+	procedure test2;
+		var a;
+		begin
+			a:= a + 5;
+			b:= b + 2;
+			c:= a + b;
+		end;
+	begin
+		call test2;
+		write c
+	end;
+begin
+	call test;
+	write a;
+	write b
+end.

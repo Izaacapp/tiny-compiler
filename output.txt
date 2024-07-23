@@ -1,0 +1,11 @@
+Generated Code:
+Line    OP    L    M
+  0    JMP    0    3
+  1    JMP    0    2
+  2    INC    0    5
+  3    LOD    0    4
+  4    LIT    0   56
+  5    OPR    0    1
+  6    STO    0    3
+  7    OPR    0    0
+  8    SYS    0    3
